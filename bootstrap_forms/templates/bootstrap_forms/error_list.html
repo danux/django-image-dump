@@ -1,0 +1,28 @@
+{% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        {% if form.errors|length > 1 %}
+            <strong>The following {{ form.errors|length }} errors occurred:</strong>
+            <ul>
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><b>{{ field.label }}</b> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>The following error occurred:</strong><br />
+            {% if form.non_field_errors|length == 1 %}
+                {{ form.non_field_errors.0 }}
+            {% else %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <b>{{ field.label }}</b> {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

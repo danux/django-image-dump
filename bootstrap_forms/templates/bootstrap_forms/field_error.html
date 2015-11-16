@@ -1,0 +1,11 @@
+{% if field.errors %}
+    {% if field.errors|length > 1 %}
+        <ul id="{{ field.auto_id }}_error" class="error-list" class="col-sm-offset-2 col-sm-10">
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p id="{{ field.auto_id }}_error" class="error-list help-block col-sm-offset-2 col-sm-10">{{ field.errors.0 }}</p>
+    {% endif %}
+{% endif %}

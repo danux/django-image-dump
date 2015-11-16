@@ -1,0 +1,10 @@
+*.log
+*.pot
+*.pyc
+local_settings.py
+build
+.idea
+*.sqlite3
+/static/
+/media/
+

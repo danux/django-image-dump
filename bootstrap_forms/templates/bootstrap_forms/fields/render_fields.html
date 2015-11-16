@@ -1,0 +1,12 @@
+{% load bootstrap_forms %}
+
+
+{% for field in form %}
+    {% if field|is_checkbox %}
+        {% include 'bootstrap_forms/fields/checkbox.html' %}
+    {% elif field|is_hidden %}
+        {% include 'bootstrap_forms/fields/hidden.html' %}
+    {% else %}
+        {% include 'bootstrap_forms/fields/default_input.html' %}
+    {% endif %}
+{% endfor %}

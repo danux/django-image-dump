@@ -1,0 +1,20 @@
+{% load widget_tweaks %}
+
+
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+    {% if field.errors %}
+        {% if field.errors|length > 1 %}
+            <ul class="error-list">
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="error-list help-block">{{ field.errors.0 }}</p>
+        {% endif %}
+    {% endif %}
+    <label for="{{ field.auto_id }}">
+        {% render_field field %}
+        {{ field.label }}
+    </label>
+</div>

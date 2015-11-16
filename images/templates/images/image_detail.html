@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n thumbnail %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">{{ object.title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% if object.image|is_portrait %}
+                {% thumbnail object.image "x700" as im %}
+                    <a href="{{ object.image.url }}">
+                        <img class="img-responsive center-block" src="{{ im.url }}" alt="{{ object.title }}">
+                    </a>
+                {% endthumbnail %}
+            {% else %}
+                {% thumbnail object.image "700" as im %}
+                    <a href="{{ object.image.url }}">
+                        <img class="img-responsive center-block" src="{{ im.url }}" alt="{{ object.title }}">
+                    </a>
+                {% endthumbnail %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center">
+                Uploaded on {{ object.date_created }} - {{ object.image.size|filesizeformat }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

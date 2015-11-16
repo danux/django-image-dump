@@ -1,0 +1,7 @@
+django==1.8.
+flake8==2.5.0
+django-widget-tweaks==1.4.1
+django-factory-boy==1.0.0
+pillow==3.0.0
+sorl-thumbnail==12.3
+python-magic==0.4.10

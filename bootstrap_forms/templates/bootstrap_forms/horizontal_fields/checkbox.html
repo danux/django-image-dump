@@ -1,0 +1,12 @@
+{% load widget_tweaks %}
+
+
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+    {% include 'bootstrap_forms/field_error.html' %}
+    <div class="col-sm-offset-2 col-sm-10">
+        <label for="{{ field.auto_id }}">
+            {% render_field field %}
+            {{ field.label }}
+        </label>
+    </div>
+</div>

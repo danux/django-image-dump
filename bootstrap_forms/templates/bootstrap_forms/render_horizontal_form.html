@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+
+
+<form method="post" action="{{ action|default:"." }}" class="form-horizontal">
+    {% csrf_token %}
+    {% include 'bootstrap_forms/error_list.html' %}
+    {% if legend %}
+        <legend>{{ legend }}</legend>
+    {% endif %}
+
+    {% include 'bootstrap_forms/horizontal_fields/render_fields.html' %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">{{ button_text|default:"Submit" }}</button>
+        </div>
+    </div>
+</form>
