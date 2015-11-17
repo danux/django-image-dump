@@ -51,8 +51,8 @@ class Image(models.Model):
             return base62 or alphabet[0]
 
         d = DES.new(settings.DES_KEY)
-        self.encrypted_key = base62encode(struct.unpack('<Q', d.encrypt(
-            struct.pack('<Q', self.pk)
+        self.encrypted_key = base62encode(struct.unpack(str('<Q'), d.encrypt(
+            struct.pack(str('<Q'), self.pk)
         ))[0])
 
     def make_thumbnail(self):
