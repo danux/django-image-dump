@@ -9,7 +9,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from images.factories import ImageFactory
 from images.models import Image
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 
 class ImageModelTestCase(TestCase):

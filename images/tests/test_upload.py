@@ -5,7 +5,10 @@
 from __future__ import unicode_literals
 import json
 import os
-from unittest.mock import patch, Mock
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
