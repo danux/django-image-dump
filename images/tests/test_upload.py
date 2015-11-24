@@ -6,9 +6,9 @@ from __future__ import unicode_literals
 import json
 import os
 try:
-    from unittest.mock import patch
+    from unittest.mock import patch, Mock
 except ImportError:
-    from mock import patch
+    from mock import patch, Mock
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
