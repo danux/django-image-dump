@@ -1,5 +1,7 @@
 # Django Image Dump
-## A.K.A an Imgur rip-off
+
+[![Build Status](https://travis-ci.org/danux/django-image-dump.svg)](https://travis-ci.org/danux/django-image-dump)
+[![Coverage Status](https://coveralls.io/repos/danux/django-image-dump/badge.svg?branch=master&service=github)](https://coveralls.io/github/danux/django-image-dump?branch=master)
 
 This is an image upload app built on Django and using Blueimp's image uploader.
 

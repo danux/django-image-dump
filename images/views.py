@@ -4,7 +4,7 @@
 """
 from __future__ import unicode_literals
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -18,7 +18,7 @@ def mutli_image_upload(request):
     View for handling multi-image upload.
     """
     if request.method == 'POST':
-        if 'application/json' in request.META.get('HTTP_ACCEPT'):
+        if 'application/json' in request.META.get('HTTP_ACCEPT', []):
             content_type = 'application/json'
         else:
             content_type = 'text/plain'
@@ -55,7 +55,10 @@ def delete_image(request, slug):
     if request.method != 'DELETE':
         return HttpResponseNotAllowed(permitted_methods=['DELETE'])
 
-    if 'application/json' in request.META.get('HTTP_ACCEPT'):
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
+    if 'application/json' in request.META.get('HTTP_ACCEPT', []):
         content_type = 'application/json'
     else:
         content_type = 'text/plain'

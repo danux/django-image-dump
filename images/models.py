@@ -3,7 +3,6 @@
 
 """
 from __future__ import unicode_literals
-from string import ascii_lowercase, ascii_uppercase, digits
 import struct
 from Crypto.Cipher import DES
 from django.conf import settings
@@ -11,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from sorl.thumbnail import get_thumbnail
+from string import ascii_lowercase, ascii_uppercase, digits
 
 
 class Image(models.Model):
@@ -54,6 +54,14 @@ class Image(models.Model):
         self.encrypted_key = base62encode(struct.unpack(str('<Q'), d.encrypt(
             struct.pack(str('<Q'), self.pk)
         ))[0])
+        return self.encrypted_key
+
+    def set_title(self):
+        """
+        Sets the title to the name of the file.
+        """
+        if self.title == '' or self.title is None:
+            self.title = self.image.file.name.split('/')[-1]
 
     def make_thumbnail(self):
         """
@@ -66,14 +74,13 @@ class Image(models.Model):
         return thumbnail
 
 
-def generate_encrypted_key(sender, **kwargs):
+def post_create_setup(sender, **kwargs):
     """
-    If an image is being created then generate the unique key.
+    If an image is being created then generate the unique key and set the title.
     """
     if kwargs['created']:
         instance = kwargs['instance']
         instance.generate_encrypted_key()
-        if instance.title == '' or instance.title is None:
-            instance.title = instance.image.file.name.split('/')[-1]
+        instance.set_title()
         instance.save()
-post_save.connect(generate_encrypted_key, sender=Image)
+post_save.connect(post_create_setup, sender=Image)
