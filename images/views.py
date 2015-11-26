@@ -26,23 +26,23 @@ def mutli_image_upload(request):
         # TODO: See if there's a safer way to inspect file than .read() - .chunks() isn't accepted by magic.
         mime_type = magic.from_buffer(request.FILES['files[]'].read(), mime=True)
         if mime_type not in settings.ALLOWED_MIME_TYPES:
-            response_dict = dict(files=[dict(
-                name=request.FILES['files[]'].name,
-                size=request.FILES['files[]'].size,
-                error='{0} is not a valid image file'.format(request.FILES['files[]'].name)
-            )])
+            response_dict = {'files': [{
+                'name': request.FILES['files[]'].name,
+                'size': request.FILES['files[]'].size,
+                'error': '{0} is not a valid image file'.format(request.FILES['files[]'].name)
+            }]}
         else:
             image = Image.objects.create(image=request.FILES['files[]'])
             thumbnail = image.make_thumbnail()
-            response_dict = dict(files=[dict(
-                name=image.title,
-                size=image.image.size,
-                url=image.get_absolute_url(),
-                thumbnailUrl=thumbnail.url,
-                deleteUrl=image.get_delete_url(),
-                deleteType='DELETE',
-            )])
-        return JsonResponse(response_dict, **{'content_type': content_type})
+            response_dict = {'files': [{
+                'name': image.title,
+                'size': image.image.size,
+                'url': image.get_absolute_url(),
+                'thumbnailUrl': thumbnail.url,
+                'deleteUrl': image.get_delete_url(),
+                'deleteType': 'DELETE',
+            }]}
+        return JsonResponse(response_dict, content_type=content_type)
     else:
         return render_to_response('images/upload.html', context_instance=RequestContext(request))
 
@@ -67,7 +67,7 @@ def delete_image(request, slug):
     response_dict = {
         'files': {image.title: True}
     }
-    return JsonResponse(response_dict, **{'content_type': content_type})
+    return JsonResponse(response_dict, content_type=content_type)
 
 
 class ImageDetailView(DetailView):

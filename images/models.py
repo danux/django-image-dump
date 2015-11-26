@@ -11,6 +11,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from sorl.thumbnail import get_thumbnail
 from string import ascii_lowercase, ascii_uppercase, digits
+from images.base62 import base62encode
 
 
 class Image(models.Model):
@@ -39,17 +40,6 @@ class Image(models.Model):
         """
         Generates a DES encrypted version of the primary key then wraps it in base 64.
         """
-        def base62encode(number):
-            """
-            Base 62 encoded integers.
-            """
-            alphabet = ascii_lowercase + ascii_uppercase + digits
-            base62 = ''
-            while number:
-                number, i = divmod(number, len(alphabet))
-                base62 = alphabet[i] + base62
-            return base62 or alphabet[0]
-
         d = DES.new(settings.DES_KEY)
         self.encrypted_key = base62encode(struct.unpack(str('<Q'), d.encrypt(
             struct.pack(str('<Q'), self.pk)
