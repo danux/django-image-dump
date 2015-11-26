@@ -13,10 +13,10 @@ def base62encode(number):
     try:
         number = int(number)
     except ValueError:
-        raise ValueError('You must provide a non-negative integer (or 0) for base62 encoding.')
+        raise ValueError('You must provide a non-negative integer for base62 encoding.')
     else:
         if number < 0:
-            raise ValueError('You must provide a non-negative integer (or 0) for base62 encoding.')
+            raise ValueError('You must provide a non-negative integer for base62 encoding.')
 
     alphabet = ascii_lowercase + ascii_uppercase + digits
     if number < len(alphabet):
