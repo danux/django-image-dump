@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import os
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
 from images.factories import ImageFactory
 from images.models import Image
@@ -56,3 +57,28 @@ class ImageModelTestCase(TestCase):
         ImageFactory.create()
         self.assertEquals(1, generate_encrypted_key.call_count)
         self.assertEquals(1, set_title.call_count)
+
+    def test_image_knows_file_extension(self):
+        """
+        Tests an image knows its file extension.
+        """
+        image = ImageFactory.create()
+        self.assertEquals(image.file_extension, 'png')
+
+    def test_image_knows_mime_type(self):
+        """
+        Tests an image knows its file extension.
+        """
+        image = ImageFactory.create()
+        self.assertEquals(image.mime_type, b'image/png')
+
+    @override_settings(DES_KEY='abcd1234')
+    def test_image_knows_raw_url(self):
+        """
+        Tests an image knows its file extension.
+        """
+        image = ImageFactory.create(pk=1)
+        self.assertEquals(
+            image.get_raw_url(),
+            reverse('images:image_detail_raw', kwargs={'slug': image.encrypted_key, 'extension': image.file_extension})
+        )

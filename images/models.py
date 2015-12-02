@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
+import magic
 from sorl.thumbnail import get_thumbnail
 from images.base62 import base62encode
 
@@ -28,6 +29,12 @@ class Image(models.Model):
         The URL for viewing the image.
         """
         return reverse('images:image_detail', kwargs={'slug': self.encrypted_key})
+
+    def get_raw_url(self):
+        """
+        The URL for viewing the raw image.
+        """
+        return reverse('images:image_detail_raw', kwargs={'slug': self.encrypted_key, 'extension': self.file_extension})
 
     def get_delete_url(self):
         """
@@ -61,6 +68,20 @@ class Image(models.Model):
         else:
             thumbnail = get_thumbnail(self.image, '80', quality=99)
         return thumbnail
+
+    @property
+    def file_extension(self):
+        """
+        Returns the image's file extension.
+        """
+        return self.image.file.name.split('.')[-1]
+
+    @property
+    def mime_type(self):
+        """
+        Returns the image's mime type, using magic.
+        """
+        return magic.from_file(self.image.file.name, mime=True)
 
 
 def post_create_setup(sender, **kwargs):

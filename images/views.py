@@ -4,7 +4,7 @@
 """
 from __future__ import unicode_literals
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -83,3 +83,12 @@ class ImageListView(ListView):
     View for listing images
     """
     model = Image
+
+
+def image_detail_raw(request, slug, extension):
+    """
+    View for displaying a single image
+    """
+    the_object = get_object_or_404(Image, encrypted_key=slug)
+    image_data = open(the_object.image.file.name, "rb").read()
+    return HttpResponse(image_data, content_type=the_object.mime_type)

@@ -51,3 +51,11 @@ class ImageBrowsingTestCase(TestCase):
         self.assertEquals(200, response.status_code)
         self.assertIsInstance(response.context['view'], DetailView)
         self.assertTemplateUsed(response, 'images/image_detail.html')
+
+    def test_can_view_raw_image(self):
+        """
+        If the image is requested with a file extension the raw image is sent.
+        """
+        image = ImageFactory.create()
+        response = self.client.get(image.get_raw_url())
+        self.assertEquals(response.get('content-type'), 'image/png')
