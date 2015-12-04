@@ -5,12 +5,12 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <h1>Upload Image</h1>
+        <h1>{% trans "Upload Image" %}</h1>
         <p class="lead">
-            Drag and drop images here, or select Add files, and then select Start upload.
+            {% trans "Drag and drop images here, or select Add files, and then select Start upload." %}
         </p>
         <p>
-            <a href="{% url 'images:image_list' %}"><i class="glyphicon glyphicon-list"></i> View images that have been uploaded previously</a>
+            <a href="{% url 'images:image_list' %}"><i class="glyphicon glyphicon-list"></i> {% trans "View images that have been uploaded previously" %}</a>
         </p>
     </div>
 </div>
@@ -19,20 +19,20 @@
         <div class="col-lg-7">
             <span class="btn btn-success fileinput-button">
                 <i class="glyphicon glyphicon-plus"></i>
-                <span>Add files...</span>
+                <span>{% trans "Add files" %}...</span>
                 <input type="file" name="files[]" multiple>
             </span>
             <button type="submit" class="btn btn-primary start">
                 <i class="glyphicon glyphicon-upload"></i>
-                <span>Start upload</span>
+                <span>{% trans "Start upload" %}</span>
             </button>
             <button type="reset" class="btn btn-warning cancel">
                 <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancel upload</span>
+                <span>{% trans "Cancel upload" %}</span>
             </button>
             <button type="button" class="btn btn-danger delete">
                 <i class="glyphicon glyphicon-trash"></i>
-                <span>Delete</span>
+                <span>{% trans "Delete" %}</span>
             </button>
             <input type="checkbox" class="toggle">
             <span class="fileupload-process"></span>
@@ -67,13 +67,13 @@
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
+                    <span>{% endverbatim %}{% trans "Start" %}{% verbatim %}</span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>{% endverbatim %}{% trans "Cancel" %}{% verbatim %}</span>
                 </button>
             {% } %}
         </td>
@@ -100,7 +100,7 @@
                 {% } %}
             </p>
             {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                <div><span class="label label-danger"{% endverbatim %}{% trans "Error" %}{% verbatim %}</span> {%=file.error%}</div>
             {% } %}
         </td>
         <td>
@@ -110,13 +110,13 @@
             {% if (file.deleteUrl) { %}
                 <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-data='{"csrf_token": "{% endverbatim %}{{ csrf_token }}{% verbatim %}"}' data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
+                    <span>{% endverbatim %}{% trans "Delete" %}{% verbatim %}</span>
                 </button>
                 <input type="checkbox" name="delete" value="1" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Clear</span>
+                    <span>{% endverbatim %}{% trans "Clear" %}{% verbatim %}</span>
                 </button>
             {% } %}
         </td>

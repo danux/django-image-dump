@@ -14,6 +14,18 @@ from sorl.thumbnail import get_thumbnail
 from images.base62 import base62encode
 
 
+class ImageManager(models.Manager):
+    """
+    Manager for filtering Images.
+    """
+    def filter_uploaded_by(self, uploaded_by):
+        """
+        Filters images uploaded by a given user.
+        :type uploaded_by: User
+        """
+        return self.filter(uploaded_by=uploaded_by)
+
+
 class Image(models.Model):
     """
     Model representing an image that has been uploaded to the system.
@@ -21,8 +33,11 @@ class Image(models.Model):
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='u/%Y/%m/')
     encrypted_key = models.CharField(max_length=250, db_index=True)
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    objects = ImageManager()
 
     def get_absolute_url(self):
         """

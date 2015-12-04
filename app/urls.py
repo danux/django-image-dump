@@ -17,11 +17,11 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import RedirectView
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^i/', include('images.urls', namespace='images')),
-    url(r'^$', RedirectView.as_view(pattern_name='images:upload', permanent=False), name='index')
+    url(r'^', include('images.urls', namespace='images')),
+    url(r'^inplaceeditform/', include('inplaceeditform.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

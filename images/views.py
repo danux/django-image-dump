@@ -7,6 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView
 import magic
@@ -29,10 +30,10 @@ def mutli_image_upload(request):
             response_dict = {'files': [{
                 'name': request.FILES['files[]'].name,
                 'size': request.FILES['files[]'].size,
-                'error': '{0} is not a valid image file'.format(request.FILES['files[]'].name)
+                'error': _('{} is not a valid image file').format(request.FILES['files[]'].name),
             }]}
         else:
-            image = Image.objects.create(image=request.FILES['files[]'])
+            image = Image.objects.create(image=request.FILES['files[]'], uploaded_by=request.user)
             thumbnail = image.make_thumbnail()
             response_dict = {'files': [{
                 'name': image.title,
@@ -83,6 +84,12 @@ class ImageListView(ListView):
     View for listing images
     """
     model = Image
+
+    def get_queryset(self):
+        """
+        Limits query set to images uploaded by a given user.
+        """
+        return self.model.objects.filter_uploaded_by(self.request.user)
 
 
 def image_detail_raw(request, slug, extension):

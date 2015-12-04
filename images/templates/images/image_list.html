@@ -5,12 +5,12 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <h1>Browse Images</h1>
+            <h1>{% trans "Browse Images" %}</h1>
             <p class="lead">
-                Browse images that have been uploaded previously. Select an image to view by itself and access the raw file.
+                {% trans "Browse images that have been uploaded previously. Select an image to view by itself and access the raw file." %}
             </p>
             <p>
-                <a href="{% url 'images:upload' %}"><i class="glyphicon glyphicon-upload"></i> Upload a new image</a>
+                <a href="{% url 'images:upload' %}"><i class="glyphicon glyphicon-upload"></i> {% trans "Upload a new image" %}</a>
             </p>
         </div>
     </div>

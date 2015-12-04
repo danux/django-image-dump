@@ -110,10 +110,16 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/m/'
 THUMBNAIL_UPSCALE = False
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'images:index'
 DES_KEY = 'changeme'
 ALLOWED_MIME_TYPES = (
     b'image/png',
     b'image/jpeg',
     b'image/gif',
+)
+
+
+# Inplace edit
+INSTALLED_APPS += (
+    'inplaceeditform',
 )

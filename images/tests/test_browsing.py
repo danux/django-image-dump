@@ -6,6 +6,10 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.views.generic import ListView, DetailView
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 from accounts.factories import UserFactory
 from images.factories import ImageFactory
 from images.models import Image
@@ -17,22 +21,25 @@ class ImageBrowsingTestCase(TestCase):
     """
     def setUp(self):
         super(ImageBrowsingTestCase, self).setUp()
-        user = UserFactory.create()
-        self.client.login(**{'username': user.username, 'password': 'password'})
+        self.user = UserFactory.create()
+        self.client.login(**{'username': self.user.username, 'password': 'password'})
 
     def tearDown(self):
         for image in Image.objects.all():
             image.delete()
         super(ImageBrowsingTestCase, self).tearDown()
 
-    def test_can_list_images(self):
+    @patch('images.models.ImageManager.filter_uploaded_by')
+    def test_can_list_images(self, filter_uploaded_by):
         """
         Tests the images can be listed out
         """
+        filter_uploaded_by.return_value = Image.objects.all()
         response = self.client.get(reverse('images:image_list'))
         self.assertEquals(200, response.status_code)
         self.assertIsInstance(response.context['view'], ListView)
         self.assertTemplateUsed(response, 'images/image_list.html')
+        filter_uploaded_by.assert_called_once_with(self.user)
 
     def test_must_be_logged_in_to_list(self):
         """

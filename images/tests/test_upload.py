@@ -23,8 +23,8 @@ class ImageUploadTestCase(TestCase):
     """
     def setUp(self):
         super(ImageUploadTestCase, self).setUp()
-        user = UserFactory.create()
-        self.client.login(**{'username': user.username, 'password': 'password'})
+        self.user = UserFactory.create()
+        self.client.login(**{'username': self.user.username, 'password': 'password'})
 
     def tearDown(self):
         for image in Image.objects.all():
@@ -43,7 +43,7 @@ class ImageUploadTestCase(TestCase):
         """
         The homepage should redirect to the upload form.
         """
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('images:index'))
         self.assertRedirects(response, reverse('images:upload'))
 
     def test_user_must_be_logged_in(self):
@@ -77,6 +77,22 @@ class ImageUploadTestCase(TestCase):
             'deleteType': 'DELETE',
         }]}
         self.assertJSONEqual(response.content.decode('utf-8'), json.dumps(expected_response_dict))
+
+    @override_settings(ALLOWED_MIME_TYPES=[b'image/png'])
+    @patch('images.models.Image.make_thumbnail')
+    def test_uploader_is_saves(self, make_thumbnail):
+        """
+       When an image is uploaded the user should be saved.
+        """
+        make_thumbnail.return_value = Mock()
+        make_thumbnail.return_value.url = ''
+        with open(
+            os.path.join(settings.BASE_DIR, 'images', 'tests', 'data', 'image.png'), "rb"
+        ) as image_file:
+            image = SimpleUploadedFile("test.png", image_file.read(), content_type='image/png')
+            self.client.post(reverse('images:upload'), data={'files[]': image}, follow=True)
+        latest_image = Image.objects.latest('date_created')
+        self.assertEquals(self.user, latest_image.uploaded_by)
 
     @override_settings(ALLOWED_MIME_TYPES=[b'image/jpeg'])
     def test_error_handling_mime_type(self):

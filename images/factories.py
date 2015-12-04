@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import os
 from django.core.files.uploadedfile import SimpleUploadedFile
 import factory
+from accounts.factories import UserFactory
 from images.models import Image
 
 
@@ -17,6 +18,7 @@ class ImageFactory(factory.DjangoModelFactory):
     Factory for creating an image.
     """
     image = SimpleUploadedFile('image.png', open(IMAGE_FILE, 'rb').read(), 'image/png')
+    uploaded_by = factory.SubFactory(UserFactory)
 
     class Meta(object):
         model = Image

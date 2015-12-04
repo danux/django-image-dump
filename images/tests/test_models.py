@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from accounts.factories import UserFactory
 from images.factories import ImageFactory
 from images.models import Image
 try:
@@ -82,3 +83,15 @@ class ImageModelTestCase(TestCase):
             image.get_raw_url(),
             reverse('images:image_detail_raw', kwargs={'slug': image.encrypted_key, 'extension': image.file_extension})
         )
+
+    def test_can_get_images_uploaded_by_a_user(self):
+        """
+        Tests that the manager can get images specifically uploaded by a user.
+        """
+        user_1 = UserFactory.create()
+        user_2 = UserFactory.create()
+        image_1a = ImageFactory.create(uploaded_by=user_1)
+        image_1b = ImageFactory.create(uploaded_by=user_1)
+        image_2a = ImageFactory.create(uploaded_by=user_2)
+        self.assertEquals([image_1a, image_1b], list(Image.objects.filter_uploaded_by(user_1)))
+        self.assertEquals([image_2a], list(Image.objects.filter_uploaded_by(user_2)))

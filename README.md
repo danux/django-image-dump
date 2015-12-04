@@ -16,6 +16,7 @@ Whilst very simple, it does boast some nice features.
 
 - "Scaleable" slug generation - based on DES encryption of primary keys to prevent people guessing image URLs and ensuring uniqueness
 - Drag n drop multi-image upload thanks to Blueimp
+- Set image titles with in-line editing (superuser only, for now)
 - Built on Bootstrap so it's _sort of_ responsive for easy to reskin
 - Private image listings
 - Proper image type detection through magic
