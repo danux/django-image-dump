@@ -1,4 +1,4 @@
-{% load static %}<!DOCTYPE html>
+{% load static i18n %}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -17,6 +17,20 @@
 </head>
 <body>
     <div class="container">
+        {% block search %}
+            <div class="row">
+                <div class="col-lg-6 pull-right">
+                    <form method="get" action="{% url "images:image_search" %}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q" placeholder="{% trans "Search for" %}..." value="{{ query|default:"" }}">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">{% trans "Go!" %}</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        {% endblock search %}
         {% block content %}
         {% endblock content %}
     </div>

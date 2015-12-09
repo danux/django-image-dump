@@ -22,6 +22,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^', include('images.urls', namespace='images')),
     url(r'^inplaceeditform/', include('inplaceeditform.urls')),
+    url(r'^', include('images.urls', namespace='images')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

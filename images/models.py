@@ -98,6 +98,9 @@ class Image(models.Model):
         """
         return magic.from_file(self.image.file.name, mime=True)
 
+    class Meta(object):
+        ordering = ['-date_created']
+
 
 def post_create_setup(sender, **kwargs):
     """

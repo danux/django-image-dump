@@ -7,12 +7,14 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import RedirectView
 from images.views import ImageDetailView, ImageListView, mutli_image_upload, delete_image, image_detail_raw
+from images.views import ImageSearchView
 
 
 urlpatterns = patterns(
     '',
     url(r'^upload/$', login_required(mutli_image_upload), name='upload'),
     url(r'^list/$', login_required(ImageListView.as_view()), name='image_list'),
+    url(r'^search/?$', login_required(ImageSearchView.as_view()), name='image_search'),
     url(r'^(?P<slug>[\d\w]+)/$', ImageDetailView.as_view(), name='image_detail'),
     url(r'^(?P<slug>[\d\w]+).(?P<extension>[\w]{3})$', image_detail_raw, name='image_detail_raw'),
     url(r'^(?P<slug>[\d\w]+)/delete/$', delete_image, name='image_delete'),
