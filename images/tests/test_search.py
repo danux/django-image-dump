@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-
+Search integration tests
 """
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
@@ -12,15 +12,14 @@ try:
 except ImportError:
     from mock import patch
 from accounts.factories import UserFactory
-from images.models import Image
 
 
-class ImageBrowsingTestCase(TestCase):
+class ImageSearchTestCase(TestCase):
     """
-    Tests images can be browsed.
+    Tests images can be searched.
     """
     def setUp(self):
-        super(ImageBrowsingTestCase, self).setUp()
+        super(ImageSearchTestCase, self).setUp()
         self.user = UserFactory.create()
         self.client.login(**{'username': self.user.username, 'password': 'password'})
 
