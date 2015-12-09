@@ -12,6 +12,7 @@ I built this app to replace my scp workflow to move images to a random folder on
 
 Whilst very simple, it does boast some nice features.
 
+
 ## Features
 
 - "Scaleable" slug generation - based on DES encryption of primary keys to prevent people guessing image URLs and ensuring uniqueness
@@ -22,6 +23,7 @@ Whilst very simple, it does boast some nice features.
 - Proper image type detection through magic
 - Open Graph integration so images share properly on compatible services
 - Very easily adaptable to support other media types (namely changing the ``ALLOWED_MIME_TYPES`` setting)
+
 
 ## Disclaimer
 

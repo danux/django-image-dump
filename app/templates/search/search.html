@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n static thumbnail %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{% trans "Search Images" %}</h1>
+            <p class="lead">
+                {% trans "Search for images that have been uploaded in the past." %}
+            </p>
+            <p>
+                <a href="{% url 'images:image_list' %}"><i class="glyphicon glyphicon-list"></i> {% trans "Browse images that have been uploaded previously" %}</a>
+            </p>
+        </div>
+    </div>
+    {% if query %}
+        <div class="row" data-equal=".thumbnail">
+            {% for result in object_list %}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                {% if result.object.image|is_portrait %}
+                    {% thumbnail result.object.image "x200" as im %}
+                        <a href="{{ result.object.get_absolute_url }}" class="thumbnail">
+                            <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                        </a>
+                    {% endthumbnail %}
+                {% else %}
+                    {% thumbnail result.object.image "200" as im %}
+                        <a href="{{ result.object.get_absolute_url }}" class="thumbnail">
+                            <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                        </a>
+                    {% endthumbnail %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% include "includes/pagination.html" %}
+    {% endif %}
+{% endblock %}
+
+
+{% block extra_javascripts %}
+    <script type="text/javascript" src="{% static 'js/jquery.equal-heights.min.js' %}"></script>
+{% endblock %}

@@ -123,3 +123,22 @@ ALLOWED_MIME_TYPES = (
 INSTALLED_APPS += (
     'inplaceeditform',
 )
+
+
+# Debug toolbar
+INSTALLED_APPS += (
+    'debug_toolbar',
+)
+
+
+# Haystack
+INSTALLED_APPS += (
+    'haystack',
+)
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}

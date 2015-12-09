@@ -10,6 +10,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView
+from haystack.generic_views import SearchView
 import magic
 from images.models import Image
 
@@ -84,6 +85,7 @@ class ImageListView(ListView):
     View for listing images
     """
     model = Image
+    paginate_by = 12
 
     def get_queryset(self):
         """
@@ -99,3 +101,14 @@ def image_detail_raw(request, slug, extension):
     the_object = get_object_or_404(Image, encrypted_key=slug)
     image_data = open(the_object.image.file.name, "rb").read()
     return HttpResponse(image_data, content_type=the_object.mime_type)
+
+
+class ImageSearchView(SearchView):
+    """
+    Custom search view to ensure users can only search their own images.
+    """
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = super(ImageSearchView, self).get_queryset()
+        return queryset.filter(uploaded_by=self.request.user)
