@@ -6,11 +6,6 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from haystack.generic_views import SearchView
-
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
 from accounts.factories import UserFactory
 
 
