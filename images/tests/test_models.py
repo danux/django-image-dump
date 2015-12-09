@@ -93,5 +93,5 @@ class ImageModelTestCase(TestCase):
         image_1a = ImageFactory.create(uploaded_by=user_1)
         image_1b = ImageFactory.create(uploaded_by=user_1)
         image_2a = ImageFactory.create(uploaded_by=user_2)
-        self.assertEquals([image_1a, image_1b], list(Image.objects.filter_uploaded_by(user_1)))
+        self.assertEquals([image_1b, image_1a], list(Image.objects.filter_uploaded_by(user_1)))
         self.assertEquals([image_2a], list(Image.objects.filter_uploaded_by(user_2)))
