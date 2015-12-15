@@ -87,7 +87,7 @@ msgid ""
 "Browse images that have been uploaded previously. Select an image to view by "
 "itself and access the raw file."
 msgstr ""
-"Parcourir les images qui ont été ajoutés précédemment . Sélectionnez une image pour la voir en"
+"Parcourir les images qui ont été ajoutés précédemment. Sélectionnez une image pour la voir en "
 "lui-même et accéder au fichier brut ."
 
 #: images/templates/images/upload.html:8
@@ -97,7 +97,7 @@ msgstr "Ajouter une Image"
 #: images/templates/images/upload.html:10
 msgid ""
 "Drag and drop images here, or select Add files, and then select Start upload."
-msgstr "Glissez et déposez les images ici, ou sélectionnez Ajouter des fichiers , puis sélectionnez Démarrer le téléchargement"
+msgstr "Glissez et déposez les images ici, ou sélectionnez Ajouter des fichiers, puis sélectionnez Démarrer le téléchargement"
 
 #: images/templates/images/upload.html:13
 msgid "View images that have been uploaded previously"
