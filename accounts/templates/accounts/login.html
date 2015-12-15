@@ -5,7 +5,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <h1>Login</h1>
+            <h1>{% trans 'Login' %}</h1>
         </div>
     </div>
     <div class="row">
@@ -13,14 +13,13 @@
             <form method="post" action="{{ action|default:"." }}" class="form-horizontal">
                 {% csrf_token %}
                 {% include 'bootstrap_forms/error_list.html' %}
-                {% include 'bootstrap_forms/horizontal_fields/default_input.html' with field=form.username %}
-                {% include 'bootstrap_forms/horizontal_fields/default_input.html' with field=form.password %}
+                {% include 'bootstrap_forms/horizontal_fields/render_fields.html' %}
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-primary">Login</button>
+                      <button type="submit" class="btn btn-primary">{% trans 'Login' %}</button>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,14 @@
+{% load i18n %}
+
+
 {% if form.errors %}
     <div class="alert alert-danger" role="alert">
         {% if form.errors|length > 1 %}
-            <strong>The following {{ form.errors|length }} errors occurred:</strong>
+            <strong>
+                {% blocktrans with num_errors=form.errors|length %}
+                    The following {{ num_errors }} errors occurred:
+                {% endblocktrans %}
+            </strong>
             <ul>
                 {% for error in form.non_field_errors %}
                     <li>{{ error }}</li>
@@ -13,7 +20,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <strong>The following error occurred:</strong><br />
+            <strong>{% trans "The following error occurred:" %}</strong><br />
             {% if form.non_field_errors|length == 1 %}
                 {{ form.non_field_errors.0 }}
             {% else %}

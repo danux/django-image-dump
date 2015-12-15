@@ -121,8 +121,11 @@ ALLOWED_MIME_TYPES = (
 
 # Inplace edit
 INSTALLED_APPS += (
+    'inplaceeditform_bootstrap',
     'inplaceeditform',
 )
+
+ADAPTOR_INPLACEEDIT_EDIT = 'images.perms.UploadedByEditInline'
 
 
 # Debug toolbar
@@ -142,3 +145,9 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
+
+
+# Django extensions
+INSTALLED_APPS += (
+    'django_extensions',
+)
