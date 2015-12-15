@@ -152,3 +152,12 @@ HAYSTACK_CONNECTIONS = {
 INSTALLED_APPS += (
     'django_extensions',
 )
+
+
+# Lanaguages
+LANGUAGES = (
+    ('fr', 'Français'),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)

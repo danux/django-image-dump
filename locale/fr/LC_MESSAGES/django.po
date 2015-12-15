@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-15 13:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/templates/accounts/change-password-done.html:8
+msgid "Password Changed"
+msgstr "Mot de passe a été changé"
+
+#: accounts/templates/accounts/change-password-done.html:14
+msgid "Your password has been changed."
+msgstr "Merci, votre mot de passe a été changé."
+
+#: accounts/templates/accounts/change-password-done.html:17
+#: images/templates/images/image_list.html:13
+#: images/templates/search/search.html:13
+msgid "Upload a new image"
+msgstr "Ajouter une image"
+
+#: accounts/templates/accounts/change-password-done.html:18
+#: images/templates/search/search.html:14
+msgid "Browse images that have been uploaded previously"
+msgstr "Parcourir les images qui ont été ajoutés précédemment"
+
+#: accounts/templates/accounts/change-password.html:8
+msgid "Change Password"
+msgstr "Changez votre mot de passe"
+
+#: accounts/templates/accounts/change-password.html:13
+msgid "Change password"
+msgstr "Changez mot de passe"
+
+#: accounts/templates/accounts/login.html:8
+#: accounts/templates/accounts/login.html:22
+msgid "Login"
+msgstr "Connexion"
+
+#: app/templates/base_with_search.html:10
+msgid "Search for"
+msgstr "Rechercher"
+
+#: app/templates/base_with_search.html:12
+msgid "Go!"
+msgstr "Allez!"
+
+#: bootstrap_forms/templates/bootstrap_forms/error_list.html:8
+#, python-format
+msgid ""
+""
+"                    The following %(num_errors)s errors occurred:\n"
+"                "
+msgstr "Les 5 %(num_errors)s suivantes sont survenues:"
+
+#: bootstrap_forms/templates/bootstrap_forms/error_list.html:23
+msgid "The following error occurred:"
+msgstr "L'erreur suivante est survenue:"
+
+#: bootstrap_forms/templates/bootstrap_forms/render_horizontal_form.html:14
+msgid "Submit"
+msgstr "Soumettre"
+
+#: images/templates/images/image_detail.html:41
+msgid "Uploaded on"
+msgstr "Ajouté le"
+
+#: images/templates/images/image_list.html:8
+msgid "Browse Images"
+msgstr "Parcourir les images"
+
+#: images/templates/images/image_list.html:10
+msgid ""
+"Browse images that have been uploaded previously. Select an image to view by "
+"itself and access the raw file."
+msgstr ""
+"Parcourir les images qui ont été ajoutés précédemment . Sélectionnez une image pour la voir en"
+"lui-même et accéder au fichier brut ."
+
+#: images/templates/images/upload.html:8
+msgid "Upload Image"
+msgstr "Ajouter une Image"
+
+#: images/templates/images/upload.html:10
+msgid ""
+"Drag and drop images here, or select Add files, and then select Start upload."
+msgstr "Glissez et déposez les images ici, ou sélectionnez Ajouter des fichiers , puis sélectionnez Démarrer le téléchargement"
+
+#: images/templates/images/upload.html:13
+msgid "View images that have been uploaded previously"
+msgstr "Voir les images qui ont été ajoutés précédemment"
+
+#: images/templates/images/upload.html:22
+msgid "Add files"
+msgstr "Ajouter une fichier"
+
+#: images/templates/images/upload.html:27
+msgid "Start upload"
+msgstr "Démarrer le téléchargement"
+
+#: images/templates/images/upload.html:31
+msgid "Cancel upload"
+msgstr "Annuler le téléchargement"
+
+#: images/templates/images/upload.html:35
+#: images/templates/images/upload.html:113
+msgid "Delete"
+msgstr "Effacer"
+
+#: images/templates/images/upload.html:70
+msgid "Start"
+msgstr "Annuler"
+
+#: images/templates/images/upload.html:76
+msgid "Cancel"
+msgstr "Annuler"
+
+#: images/templates/images/upload.html:103
+msgid "Error"
+msgstr "Erreur"
+
+#: images/templates/images/upload.html:119
+msgid "Clear"
+msgstr "Clair"
+
+#: images/templates/search/search.html:8
+msgid "Search Images"
+msgstr "Rechercher des Images"
+
+#: images/templates/search/search.html:10
+msgid "Search for images that have been uploaded in the past."
+msgstr "Recherche d'images qui ont été téléchargés auparavant."
+
+#: images/templates/search/search.html:43
+msgid "No Results Found"
+msgstr "Aucun résultat trouvé"
+
+#: images/templates/search/search.html:44
+msgid "Sorry, no images matched your query."
+msgstr "Désolé , pas d'images trouvées."
+
+#: images/views.py:34
+msgid "{} is not a valid image file"
+msgstr "{} est pas un fichier image valide"
