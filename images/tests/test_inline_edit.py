@@ -3,7 +3,10 @@
 Tests the inline edit functionality is integrated.
 """
 from __future__ import unicode_literals
-from unittest.mock import MagicMock
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import MagicMock
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django_factory_boy.auth import UserFactory
