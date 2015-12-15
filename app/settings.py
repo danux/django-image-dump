@@ -55,6 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'app.urls'
@@ -121,8 +122,11 @@ ALLOWED_MIME_TYPES = (
 
 # Inplace edit
 INSTALLED_APPS += (
+    'inplaceeditform_bootstrap',
     'inplaceeditform',
 )
+
+ADAPTOR_INPLACEEDIT_EDIT = 'images.perms.UploadedByEditInline'
 
 
 # Debug toolbar
@@ -142,3 +146,9 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
+
+
+# Django extensions
+INSTALLED_APPS += (
+    'django_extensions',
+)

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block search %}
+    <div class="row">
+        <div class="col-md-6 col-lg-6 pull-right">
+            <form method="get" action="{% url "images:image_search" %}">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="{% trans "Search for" %}..." value="{{ query|default:"" }}">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">{% trans "Go!" %}</button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div><!-- /.col-md-6 .col-lg-6 .pull-right -->
+    </div><!-- /.row -->
+{% endblock search %}

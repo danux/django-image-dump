@@ -3,6 +3,11 @@
 
 <form method="post" action="{{ action|default:"." }}">
     {% csrf_token %}
+    {% include 'bootstrap_forms/error_list.html' %}
+    {% if legend %}
+        <legend>{{ legend }}</legend>
+    {% endif %}
+
     {% include 'bootstrap_forms/fields/render_fields.html' %}
     <input class="btn btn-primary" type="submit" value="{{ button_text|default:"Submit" }}">
 </form>
