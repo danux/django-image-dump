@@ -64,7 +64,7 @@ msgid ""
 ""
 "                    The following %(num_errors)s errors occurred:\n"
 "                "
-msgstr "Les 5 %(num_errors)s suivantes sont survenues:"
+msgstr "Les %(num_errors)s suivantes sont survenues:"
 
 #: bootstrap_forms/templates/bootstrap_forms/error_list.html:23
 msgid "The following error occurred:"
