@@ -122,7 +122,7 @@ msgstr "Effacer"
 
 #: images/templates/images/upload.html:70
 msgid "Start"
-msgstr "Annuler"
+msgstr "Démarrer"
 
 #: images/templates/images/upload.html:76
 msgid "Cancel"
