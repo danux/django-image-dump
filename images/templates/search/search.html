@@ -1,4 +1,4 @@
-{% extends 'base_with_search.html' %}
+{% extends 'base.html' %}
 {% load i18n static thumbnail %}
 
 
@@ -8,10 +8,6 @@
             <h1>{% trans "Search Images" %}</h1>
             <p class="lead">
                 {% trans "Search for images that have been uploaded in the past." %}
-            </p>
-            <p>
-                <a href="{% url 'images:upload' %}"><i class="glyphicon glyphicon-upload"></i> {% trans "Upload a new image" %}</a><br>
-                <a href="{% url 'images:image_list' %}"><i class="glyphicon glyphicon-list"></i> {% trans "Browse images that have been uploaded previously" %}</a>
             </p>
         </div>
     </div>

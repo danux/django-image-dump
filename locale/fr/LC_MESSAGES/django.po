@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 13:00+0000\n"
+"POT-Creation-Date: 2015-12-18 12:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,21 +27,20 @@ msgid "Your password has been changed."
 msgstr "Merci, votre mot de passe a été changé."
 
 #: accounts/templates/accounts/change-password-done.html:17
-#: images/templates/images/image_list.html:13
-#: images/templates/search/search.html:13
+#: app/templates/base.html:36
 msgid "Upload a new image"
 msgstr "Ajouter une image"
 
 #: accounts/templates/accounts/change-password-done.html:18
-#: images/templates/search/search.html:14
 msgid "Browse images that have been uploaded previously"
 msgstr "Parcourir les images qui ont été ajoutés précédemment"
 
 #: accounts/templates/accounts/change-password.html:8
+#: app/templates/base.html:51
 msgid "Change Password"
 msgstr "Changez votre mot de passe"
 
-#: accounts/templates/accounts/change-password.html:13
+#: accounts/templates/accounts/change-password.html:16
 msgid "Change password"
 msgstr "Changez mot de passe"
 
@@ -50,18 +49,41 @@ msgstr "Changez mot de passe"
 msgid "Login"
 msgstr "Connexion"
 
-#: app/templates/base_with_search.html:10
+#: app/templates/base.html:25
+msgid "Toggle navigation"
+msgstr "Navigation bascule"
+
+#: app/templates/base.html:37 images/templates/images/image_list.html:8
+msgid "Browse Images"
+msgstr "Parcourir les images"
+
+#: app/templates/base.html:37
+msgid "current"
+msgstr "actuel"
+
+#: app/templates/base.html:41
 msgid "Search for"
 msgstr "Rechercher"
 
-#: app/templates/base_with_search.html:12
+#: app/templates/base.html:43
 msgid "Go!"
 msgstr "Allez!"
 
+#: app/templates/base.html:48
+msgid "Account"
+msgstr "Accout"
+
+#: app/templates/base.html:52
+msgid "Logout"
+msgstr "Déconnecter"
+
 #: bootstrap_forms/templates/bootstrap_forms/error_list.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "                    The following %(num_errors)s errors occurred:\n"
+#| "                "
 msgid ""
-""
+"\n"
 "                    The following %(num_errors)s errors occurred:\n"
 "                "
 msgstr "Les %(num_errors)s suivantes sont survenues:"
@@ -74,21 +96,17 @@ msgstr "L'erreur suivante est survenue:"
 msgid "Submit"
 msgstr "Soumettre"
 
-#: images/templates/images/image_detail.html:41
+#: images/templates/images/image_detail.html:44
 msgid "Uploaded on"
 msgstr "Ajouté le"
-
-#: images/templates/images/image_list.html:8
-msgid "Browse Images"
-msgstr "Parcourir les images"
 
 #: images/templates/images/image_list.html:10
 msgid ""
 "Browse images that have been uploaded previously. Select an image to view by "
 "itself and access the raw file."
 msgstr ""
-"Parcourir les images qui ont été ajoutés précédemment. Sélectionnez une image pour la voir en "
-"lui-même et accéder au fichier brut ."
+"Parcourir les images qui ont été ajoutés précédemment. Sélectionnez une "
+"image pour la voir en lui-même et accéder au fichier brut ."
 
 #: images/templates/images/upload.html:8
 msgid "Upload Image"
@@ -97,42 +115,40 @@ msgstr "Ajouter une Image"
 #: images/templates/images/upload.html:10
 msgid ""
 "Drag and drop images here, or select Add files, and then select Start upload."
-msgstr "Glissez et déposez les images ici, ou sélectionnez Ajouter des fichiers, puis sélectionnez Démarrer le téléchargement"
+msgstr ""
+"Glissez et déposez les images ici, ou sélectionnez Ajouter des fichiers, "
+"puis sélectionnez Démarrer le téléchargement"
 
-#: images/templates/images/upload.html:13
-msgid "View images that have been uploaded previously"
-msgstr "Voir les images qui ont été ajoutés précédemment"
-
-#: images/templates/images/upload.html:22
+#: images/templates/images/upload.html:19
 msgid "Add files"
 msgstr "Ajouter une fichier"
 
-#: images/templates/images/upload.html:27
+#: images/templates/images/upload.html:24
 msgid "Start upload"
 msgstr "Démarrer le téléchargement"
 
-#: images/templates/images/upload.html:31
+#: images/templates/images/upload.html:28
 msgid "Cancel upload"
 msgstr "Annuler le téléchargement"
 
-#: images/templates/images/upload.html:35
-#: images/templates/images/upload.html:113
+#: images/templates/images/upload.html:32
+#: images/templates/images/upload.html:110
 msgid "Delete"
 msgstr "Effacer"
 
-#: images/templates/images/upload.html:70
+#: images/templates/images/upload.html:67
 msgid "Start"
-msgstr "Annuler"
+msgstr "Démarrer"
 
-#: images/templates/images/upload.html:76
+#: images/templates/images/upload.html:73
 msgid "Cancel"
 msgstr "Annuler"
 
-#: images/templates/images/upload.html:103
+#: images/templates/images/upload.html:100
 msgid "Error"
 msgstr "Erreur"
 
-#: images/templates/images/upload.html:119
+#: images/templates/images/upload.html:116
 msgid "Clear"
 msgstr "Clair"
 
@@ -144,14 +160,17 @@ msgstr "Rechercher des Images"
 msgid "Search for images that have been uploaded in the past."
 msgstr "Recherche d'images qui ont été téléchargés auparavant."
 
-#: images/templates/search/search.html:43
+#: images/templates/search/search.html:39
 msgid "No Results Found"
 msgstr "Aucun résultat trouvé"
 
-#: images/templates/search/search.html:44
+#: images/templates/search/search.html:40
 msgid "Sorry, no images matched your query."
 msgstr "Désolé , pas d'images trouvées."
 
 #: images/views.py:34
 msgid "{} is not a valid image file"
 msgstr "{} est pas un fichier image valide"
+
+#~ msgid "View images that have been uploaded previously"
+#~ msgstr "Voir les images qui ont été ajoutés précédemment"

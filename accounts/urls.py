@@ -22,16 +22,16 @@ urlpatterns = patterns(
     url(
         '^change-password/$',
         'django.contrib.auth.views.password_change',
-        name='change-password',
+        name='change_password',
         kwargs={
             'template_name': 'accounts/change-password.html',
-            'post_change_redirect': 'accounts:change-password-done',
+            'post_change_redirect': 'accounts:change_password_done',
         }
     ),
     url(
         '^change-password/done/$',
         'django.contrib.auth.views.password_change_done',
-        name='change-password-done',
+        name='change_password_done',
         kwargs={'template_name': 'accounts/change-password-done.html'}
     )
 )
