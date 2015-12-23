@@ -3,6 +3,9 @@
 
 """
 from __future__ import unicode_literals
+
+import json
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.views.generic import ListView, DetailView
@@ -66,3 +69,53 @@ class ImageBrowsingTestCase(TestCase):
         image = ImageFactory.create()
         response = self.client.get(image.get_raw_url())
         self.assertEquals(response.get('content-type'), 'image/png')
+
+
+class LatestImagesTestCase(TestCase):
+    """
+    There must be a feed of the 10 latest images. This can be used by the autocomplete as the initial data.
+    """
+    def setUp(self):
+        super(LatestImagesTestCase, self).setUp()
+        self.user = UserFactory.create()
+        self.client.login(**{'username': self.user.username, 'password': 'password'})
+
+    @patch('images.models.Image.make_thumbnail')
+    def test_can_get_latest_images(self, make_thumbnail):
+        """
+        Tests the list of latest images can be returned.
+        :return:
+        """
+        make_thumbnail.return_value = 'thumbnail'
+        ImageFactory.create(uploaded_by=self.user)
+        image_1 = ImageFactory.create(uploaded_by=self.user)
+        image_2 = ImageFactory.create(uploaded_by=self.user)
+        image_3 = ImageFactory.create(uploaded_by=self.user)
+        image_4 = ImageFactory.create(uploaded_by=self.user)
+        image_5 = ImageFactory.create(uploaded_by=self.user)
+        image_6 = ImageFactory.create(uploaded_by=self.user)
+        image_7 = ImageFactory.create(uploaded_by=self.user)
+        image_8 = ImageFactory.create(uploaded_by=self.user)
+        image_9 = ImageFactory.create(uploaded_by=self.user)
+        image_10 = ImageFactory.create(uploaded_by=self.user)
+        response = self.client.get(reverse('images:latest_images'))
+        expected_response_dict = {
+            'results': [
+                {'title': image_10.title, 'thumbnail': 'thumbnail', 'url': image_10.get_absolute_url()},
+                {'title': image_9.title, 'thumbnail': 'thumbnail', 'url': image_9.get_absolute_url()},
+                {'title': image_8.title, 'thumbnail': 'thumbnail', 'url': image_8.get_absolute_url()},
+                {'title': image_7.title, 'thumbnail': 'thumbnail', 'url': image_7.get_absolute_url()},
+                {'title': image_6.title, 'thumbnail': 'thumbnail', 'url': image_6.get_absolute_url()},
+                {'title': image_5.title, 'thumbnail': 'thumbnail', 'url': image_5.get_absolute_url()},
+                {'title': image_4.title, 'thumbnail': 'thumbnail', 'url': image_4.get_absolute_url()},
+                {'title': image_3.title, 'thumbnail': 'thumbnail', 'url': image_3.get_absolute_url()},
+                {'title': image_2.title, 'thumbnail': 'thumbnail', 'url': image_2.get_absolute_url()},
+                {'title': image_1.title, 'thumbnail': 'thumbnail', 'url': image_1.get_absolute_url()},
+            ]
+        }
+        self.assertJSONEqual(response.content.decode('utf-8'), json.dumps(expected_response_dict))
+
+    def tearDown(self):
+        for image in Image.objects.all():
+            image.delete()
+        super(LatestImagesTestCase, self).tearDown()

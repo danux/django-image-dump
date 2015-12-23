@@ -3,15 +3,15 @@
 
 """
 from __future__ import unicode_literals
-import struct
 from Crypto.Cipher import DES
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
-import magic
-from sorl.thumbnail import get_thumbnail
 from images.base62 import base62encode
+from sorl.thumbnail import get_thumbnail
+import magic
+import struct
 
 
 class ImageManager(models.Manager):
@@ -74,14 +74,19 @@ class Image(models.Model):
         if self.title == '' or self.title is None:
             self.title = self.image.file.name.split('/')[-1]
 
-    def make_thumbnail(self):
+    def make_thumbnail(self, dimension=80):
         """
         Makes a thumbnail of the image.
+
+        :type dimension: str | unicode
         """
-        if self.image.height > self.image.width:
-            thumbnail = get_thumbnail(self.image, 'x80', quality=99)
-        else:
-            thumbnail = get_thumbnail(self.image, '80', quality=99)
+        try:
+            if self.image.height > self.image.width:
+                thumbnail = get_thumbnail(self.image, 'x{0}'.format(int(dimension)), quality=99).url
+            else:
+                thumbnail = get_thumbnail(self.image, str(dimension), quality=99).url
+        except IOError:
+            thumbnail = ''
         return thumbnail
 
     @property
@@ -105,7 +110,10 @@ class Image(models.Model):
 def post_create_setup(sender, **kwargs):
     """
     If an image is being created then generate the unique key and set the title.
+
+    :type sender: models.Model
     """
+    del sender  # not used
     if kwargs['created']:
         instance = kwargs['instance']
         instance.generate_encrypted_key()

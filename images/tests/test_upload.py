@@ -6,9 +6,9 @@ from __future__ import unicode_literals
 import json
 import os
 try:
-    from unittest.mock import patch, Mock
+    from unittest.mock import patch
 except ImportError:
-    from mock import patch, Mock
+    from mock import patch
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
@@ -60,8 +60,7 @@ class ImageUploadTestCase(TestCase):
         """
         Once an image is uploaded a JSON response should be returned.
         """
-        make_thumbnail.return_value = Mock()
-        make_thumbnail.return_value.url = ''
+        make_thumbnail.return_value = ''
         with open(
             os.path.join(settings.BASE_DIR, 'images', 'tests', 'data', 'image.png'), "rb"
         ) as image_file:
@@ -84,8 +83,7 @@ class ImageUploadTestCase(TestCase):
         """
        When an image is uploaded the user should be saved.
         """
-        make_thumbnail.return_value = Mock()
-        make_thumbnail.return_value.url = ''
+        make_thumbnail.return_value = ''
         with open(
             os.path.join(settings.BASE_DIR, 'images', 'tests', 'data', 'image.png'), "rb"
         ) as image_file:

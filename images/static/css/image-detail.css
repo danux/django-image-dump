@@ -6,9 +6,12 @@
 
 body {
     background-color: #131313;
-    color: #dedede;
 }
 
-img {
+.col-md-12 img {
     margin: 20px auto;
+}
+
+.col-md-12 p, .col-md-12 h1 {
+    color: #dedede;
 }
