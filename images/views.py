@@ -4,20 +4,24 @@
 """
 from __future__ import unicode_literals
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse, HttpRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView
 from haystack.generic_views import SearchView
-import magic
+from haystack.query import SearchQuerySet
 from images.models import Image
+import magic
+import json
 
 
-def mutli_image_upload(request):
+def multi_image_upload(request):
     """
     View for handling multi-image upload.
+
+    :type request: HttpRequest
     """
     if request.method == 'POST':
         if 'application/json' in request.META.get('HTTP_ACCEPT', []):
@@ -53,6 +57,8 @@ def mutli_image_upload(request):
 def delete_image(request, slug):
     """
     Deletes a specified image.
+    :param request: The HTTP request
+    :param slug: The Slug of the image
     """
     if request.method != 'DELETE':
         return HttpResponseNotAllowed(permitted_methods=['DELETE'])
@@ -97,7 +103,14 @@ class ImageListView(ListView):
 def image_detail_raw(request, slug, extension):
     """
     View for displaying a single image
+
+    :type request: HttpRequest
+    :type slug: str | unicode
+    :type extension: str | unicode
+
+    :returns HttpResponse
     """
+    del extension  # Not actually required.
     the_object = get_object_or_404(Image, encrypted_key=slug)
     image_data = open(the_object.image.file.name, "rb").read()
     return HttpResponse(image_data, content_type=the_object.mime_type)
@@ -112,3 +125,18 @@ class ImageSearchView(SearchView):
     def get_queryset(self):
         queryset = super(ImageSearchView, self).get_queryset()
         return queryset.filter(uploaded_by=self.request.user)
+
+
+def autocomplete(request):
+    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:10]
+    suggestions = [
+        {
+            'title': result.object.title,
+            'thumbnail': result.object.make_thumbnail('30').url,
+            'url': result.object.get_absolute_url(),
+        } for result in sqs
+    ]
+    the_data = json.dumps({
+        'results': suggestions
+    })
+    return HttpResponse(the_data, content_type='application/json')
