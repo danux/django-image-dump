@@ -66,3 +66,12 @@ class ImageBrowsingTestCase(TestCase):
         image = ImageFactory.create()
         response = self.client.get(image.get_raw_url())
         self.assertEquals(response.get('content-type'), 'image/png')
+
+
+class LatestImagesTestCase(TestCase):
+    """
+    There must be a feed of the 10 latest images. This can be used by the autocomplete as the initial data.
+    """
+    image_1 = ImageFactory.create()
+    image_2 = ImageFactory.create()
+

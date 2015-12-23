@@ -4,7 +4,7 @@
 """
 from __future__ import unicode_literals
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse, HttpRequest
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
