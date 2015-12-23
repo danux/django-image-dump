@@ -80,10 +80,13 @@ class Image(models.Model):
 
         :type dimension: str | unicode
         """
-        if self.image.height > self.image.width:
-            thumbnail = get_thumbnail(self.image, 'x{0}'.format(int(dimension)), quality=99)
-        else:
-            thumbnail = get_thumbnail(self.image, str(dimension), quality=99)
+        try:
+            if self.image.height > self.image.width:
+                thumbnail = get_thumbnail(self.image, 'x{0}'.format(int(dimension)), quality=99).url
+            else:
+                thumbnail = get_thumbnail(self.image, str(dimension), quality=99).url
+        except FileNotFoundError:
+            thumbnail = ''
         return thumbnail
 
     @property

@@ -44,7 +44,7 @@ def multi_image_upload(request):
                 'name': image.title,
                 'size': image.image.size,
                 'url': image.get_absolute_url(),
-                'thumbnailUrl': thumbnail.url,
+                'thumbnailUrl': thumbnail,
                 'deleteUrl': image.get_delete_url(),
                 'deleteType': 'DELETE',
             }]}
@@ -129,14 +129,40 @@ class ImageSearchView(SearchView):
 
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:10]
+    if 'application/json' in request.META.get('HTTP_ACCEPT', []):
+        content_type = 'application/json'
+    else:
+        content_type = 'text/plain'
     suggestions = [
         {
             'title': result.object.title,
-            'thumbnail': result.object.make_thumbnail('30').url,
+            'thumbnail': result.object.make_thumbnail('30'),
             'url': result.object.get_absolute_url(),
         } for result in sqs
     ]
     the_data = json.dumps({
         'results': suggestions
     })
-    return HttpResponse(the_data, content_type='application/json')
+    return HttpResponse(the_data, content_type=content_type)
+
+
+def latest_images(request):
+    """
+    Returns a JSON list of the latest images
+    :param request: HttpRequest
+    """
+    if 'application/json' in request.META.get('HTTP_ACCEPT', []):
+        content_type = 'application/json'
+    else:
+        content_type = 'text/plain'
+    images = [
+        {
+            'title': image.title,
+            'thumbnail': image.make_thumbnail('30'),
+            'url': image.get_absolute_url(),
+        } for image in Image.objects.filter_uploaded_by(request.user)[:10]
+    ]
+    the_data = json.dumps({
+        'results': images
+    })
+    return HttpResponse(the_data, content_type=content_type)

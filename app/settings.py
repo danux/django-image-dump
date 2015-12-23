@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
-    'sorl.thumbnail',
     'widget_tweaks',
     'bootstrap_forms',
     'accounts',
@@ -135,6 +134,11 @@ INSTALLED_APPS += (
     'debug_toolbar',
 )
 
+
+# Sorl
+INSTALLED_APPS += (
+    'sorl.thumbnail',
+)
 
 # Haystack
 INSTALLED_APPS += (
