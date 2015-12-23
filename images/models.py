@@ -85,7 +85,7 @@ class Image(models.Model):
                 thumbnail = get_thumbnail(self.image, 'x{0}'.format(int(dimension)), quality=99).url
             else:
                 thumbnail = get_thumbnail(self.image, str(dimension), quality=99).url
-        except FileNotFoundError:
+        except IOError:
             thumbnail = ''
         return thumbnail
 
