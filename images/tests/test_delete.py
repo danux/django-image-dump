@@ -30,7 +30,7 @@ class DeleteImageTestCase(TestCase):
         Tests that sending a delete to the delete URL will delete the image.
         """
         response = self.client.delete(self.image.get_delete_url())
-        expected_response_dict = {'files': {'image.png': True}}
+        expected_response_dict = {'files': {self.image.title: True}}
         self.assertJSONEqual(response.content.decode('utf-8'), json.dumps(expected_response_dict))
         self.assertRaises(Image.DoesNotExist, Image.objects.get, pk=self.image.pk)
 

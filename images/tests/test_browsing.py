@@ -80,6 +80,11 @@ class LatestImagesTestCase(TestCase):
         self.user = UserFactory.create()
         self.client.login(**{'username': self.user.username, 'password': 'password'})
 
+    def tearDown(self):
+        for image in Image.objects.all():
+            image.delete()
+        super(LatestImagesTestCase, self).tearDown()
+
     @patch('images.models.Image.make_thumbnail')
     def test_can_get_latest_images(self, make_thumbnail):
         """
@@ -114,8 +119,3 @@ class LatestImagesTestCase(TestCase):
             ]
         }
         self.assertJSONEqual(response.content.decode('utf-8'), json.dumps(expected_response_dict))
-
-    def tearDown(self):
-        for image in Image.objects.all():
-            image.delete()
-        super(LatestImagesTestCase, self).tearDown()
