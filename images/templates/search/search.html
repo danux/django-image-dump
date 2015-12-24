@@ -16,22 +16,24 @@
     </div>
     {% if query %}
         {% if object_list|length %}
-            <div class="row" data-equal=".thumbnail">
+            <div class="row">
                 {% for result in object_list %}
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    {% if result.object.image|is_portrait %}
-                        {% thumbnail result.object.image "x200" as im %}
-                            <a href="{{ result.object.get_absolute_url }}" class="thumbnail">
-                                <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
-                            </a>
-                        {% endthumbnail %}
-                    {% else %}
-                        {% thumbnail result.object.image "200" as im %}
-                            <a href="{{ result.object.get_absolute_url }}" class="thumbnail">
-                                <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
-                            </a>
-                        {% endthumbnail %}
-                    {% endif %}
+                    <div class="thumbnail">
+                        {% if result.object.image|is_portrait %}
+                            {% thumbnail result.object.image "x200" as im %}
+                                <a href="{{ result.object.get_absolute_url }}">
+                                    <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                                </a>
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail result.object.image "200" as im %}
+                                <a href="{{ result.object.get_absolute_url }}">
+                                    <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                                </a>
+                            {% endthumbnail %}
+                        {% endif %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -49,5 +51,10 @@
 
 
 {% block extra_javascripts %}
-    <script type="text/javascript" src="{% static 'js/jquery.equal-heights.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.matchHeight.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.thumbnail').matchHeight();
+        });
+    </script>
 {% endblock %}

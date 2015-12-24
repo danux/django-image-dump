@@ -17,9 +17,9 @@ Whilst very simple, it does boast some nice features.
 
 - "Scaleable" slug generation - based on DES encryption of primary keys to prevent people guessing image URLs and ensuring uniqueness
 - Drag n drop multi-image upload thanks to Blueimp
-- Set image titles with in-line editing (superuser only, for now)
-- Built on Bootstrap so it's _sort of_ responsive for easy to reskin
-- Private image listings
+- Set image titles with in-line editing
+- Built on Bootstrap so it's _sort of_ responsive for easy skinning
+- Private image listings and support for a search engine (through Haystack) with autocomplete using Twitter's typeahead
 - Proper image type detection through magic
 - Open Graph integration so images share properly on compatible services
 - Very easily adaptable to support other media types (namely changing the ``ALLOWED_MIME_TYPES`` setting)
@@ -29,8 +29,8 @@ Whilst very simple, it does boast some nice features.
 
 This app was built for me. I run it on my own server for me. I've licensed it because it might be useful for someone else.
 
-If you decide to use it please note only one user account is required to upload and have control over the app. If you plan to do something
-with this I recommend finishing it off by adding some permissions and what not. I'll gladly pull back if you do.
+If you decide to use this app please bare in mind it's only really been tested for one person. Other people's images shouldn't show up
+in search results or autocomplete, but it's possible I've overlooked this as I don't really test it.
 
 Pay particular attention to ``DES_KEY = 'changeme'`` in ``app/settings.py`` - you need to change that a random 8 character string that only you know for the slug generator to be unique.
 

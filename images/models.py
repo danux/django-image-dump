@@ -34,6 +34,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to='u/%Y/%m/')
     encrypted_key = models.CharField(max_length=250, db_index=True)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL)
+    tags = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

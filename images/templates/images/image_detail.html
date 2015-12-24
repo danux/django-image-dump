@@ -18,6 +18,14 @@
 {% endblock extra_javascripts %}
 
 
+{% block extra_head %}
+    <meta property="og:image" content="{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.META.HTTP_HOST }}{{ object.get_raw_url }}" />
+    <meta property="og:image:type" content="{{ object.mime_type }}" />
+    <meta property="og:image:width" content="{{ object.image.width }}" />
+    <meta property="og:image:height" content="{{ object.image.height }}" />
+{% endblock extra_head %}
+
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">

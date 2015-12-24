@@ -17,8 +17,8 @@
                 {% csrf_token %}
                 {% include 'bootstrap_forms/error_list.html' %}
                 {% include 'bootstrap_forms/horizontal_fields/render_fields.html' %}
-                {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
                 {% endif %}
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
