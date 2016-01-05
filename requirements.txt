@@ -1,4 +1,4 @@
-django==1.9
+django==1.8
 flake8==2.5.0
 django-widget-tweaks==1.4.1
 django-factory-boy==1.0.0
