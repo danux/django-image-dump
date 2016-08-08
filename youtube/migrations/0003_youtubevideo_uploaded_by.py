@@ -9,14 +9,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('images', '0001_initial'),
+        ('youtube', '0002_auto_20160105_1154'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='image',
+            model_name='youtubevideo',
             name='uploaded_by',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, default=1),
+            field=models.ForeignKey(default=1, to=settings.AUTH_USER_MODEL),
             preserve_default=False,
         ),
     ]

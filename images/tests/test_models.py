@@ -3,14 +3,18 @@
 
 """
 from __future__ import unicode_literals
+
 import os
+
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+
 from accounts.factories import UserFactory
 from images.factories import ImageFactory
 from images.models import Image
+
 try:
     from unittest.mock import patch
 except ImportError:

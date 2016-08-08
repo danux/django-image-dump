@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}{% trans 'Save YouTube Video' %}{% endblock title %}
+
+
+{% block save_active %} class="active"{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{% trans 'Save YouTube Video' %}</h1>
+            <p class="lead">
+                {% trans 'Enter the YouTube ID of the video you want to save to download.' %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'bootstrap_forms/render_horizontal_form.html' with button_text=_('Save') %}
+        </div>
+    </div>
+{% endblock %}

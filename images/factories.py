@@ -3,12 +3,14 @@
 Factory for creating images.
 """
 from __future__ import unicode_literals
+
 import os
-from django.core.files.uploadedfile import SimpleUploadedFile
+
 import factory
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from accounts.factories import UserFactory
 from images.models import Image
-
 
 IMAGE_FILE = os.path.join(os.path.dirname(__file__), 'tests', 'data', 'image.png')
 

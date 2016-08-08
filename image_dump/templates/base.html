@@ -37,9 +37,16 @@
                 <div class="collapse navbar-collapse" id="did-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li{% block upload_active %}{% endblock %}><a href="{% url 'images:upload' %}">{% trans "Upload a new image" %}</a></li>
-                        <li{% block browse_active %}{% endblock %}><a href="{% url 'images:image_list' %}">{% trans "Browse Images" %} <span class="sr-only">({% trans "current" %})</span></a></li>
+                        <li{% block save_active %}{% endblock %}><a href="{% url 'youtube:youtube_video_create' %}">{% trans "Save Video" %}</a></li>
+                        <li class="dropdown{% block browse_active %}{% endblock %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Browse' %} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'images:image_list' %}">{% trans "Images" %}</a></li>
+                                <li><a href="{% url 'youtube:youtube_video_list' %}">{% trans "Videos" %}</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                    <form class="navbar-form navbar-right" role="search" action="{% url "images:image_search" %}">
+                    <form class="navbar-form navbar-right" role="search" action="{% url "search:search" %}">
                         <div class="form-group">
                             <input type="text" class="form-control typeahead" name="q" placeholder="{% trans "Search for" %}...">
                         </div>

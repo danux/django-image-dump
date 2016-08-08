@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n thumbnail static inplace_edit %}
+
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+
+{% block nav_bar_class %}navbar-inverse{% endblock nav_bar_class %}
+
+
+{% block browse_active %} active{% endblock %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/image-detail.css'  %}">
+{% endblock extra_css %}
+
+
+{% block extra_javascripts %}
+    {% inplace_static %}
+{% endblock extra_javascripts %}
+
+
+{% block extra_head %}
+    <meta property="og:video" content="{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.META.HTTP_HOST }}{{ object.get_video_url }}" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="1280" />
+    <meta property="og:video:height" content="720" />
+{% endblock extra_head %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">{% inplace_edit "object.title" %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <video width="640" height="360" controls preload="none">
+                <source src="{{ object.get_video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center">
+                {% trans "Stolen on" %} {{ object.date_created }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

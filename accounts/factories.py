@@ -3,8 +3,9 @@
 Factory for creating a test user.
 """
 from __future__ import unicode_literals
-from django.contrib.auth import get_user_model
+
 import factory
+from django.contrib.auth import get_user_model
 
 
 class UserFactory(factory.DjangoModelFactory):

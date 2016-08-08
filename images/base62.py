@@ -3,6 +3,7 @@
 Base 62 encoding. Chose to do this recursively for fun and to see if it could be done.
 """
 from __future__ import unicode_literals
+
 from string import ascii_lowercase, ascii_uppercase, digits
 
 

@@ -6,10 +6,10 @@ from __future__ import unicode_literals
 
 from haystack import indexes
 
-from images.models import Image
+from youtube.models import YoutubeVideo
 
 
-class ImageIndex(indexes.SearchIndex, indexes.Indexable):
+class YoutubeVideoIndex(indexes.SearchIndex, indexes.Indexable):
     """
     Index for the Image model.
     """
@@ -20,7 +20,7 @@ class ImageIndex(indexes.SearchIndex, indexes.Indexable):
     content_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
-        return Image
+        return YoutubeVideo
 
     def index_queryset(self, using=None):
         return self.get_model().objects.all()

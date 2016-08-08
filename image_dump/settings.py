@@ -58,12 +58,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
 )
 
-ROOT_URLCONF = 'app.urls'
+ROOT_URLCONF = 'image_dump.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'app', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'image_dump', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'app.wsgi.application'
+WSGI_APPLICATION = 'image_dump.wsgi.application'
 
 
 # Database
@@ -143,6 +143,7 @@ INSTALLED_APPS += (
 # Haystack
 INSTALLED_APPS += (
     'haystack',
+    'search',
 )
 
 HAYSTACK_CONNECTIONS = {
@@ -166,3 +167,12 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
+
+# YouTube app
+INSTALLED_APPS += (
+    'youtube',
+)
+YOUTUBE_DOWNLOAD_ROOT = os.path.join(BASE_DIR, 'youtube_videos')
+YOUTUBE_DOWNLOAD_URL = '/videos/'
+YOUTUBE_API_KEY = 'CHANGE-ME'
