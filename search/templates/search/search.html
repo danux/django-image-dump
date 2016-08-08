@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load i18n static thumbnail %}
+
+
+{% block title %}{% trans 'Search' %}{% endblock title %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{% trans "Search" %}</h1>
+            <p class="lead">
+                {% trans "Search for images and YouTube videos that have been uploaded in the past." %}
+            </p>
+        </div>
+    </div>
+    {% if query %}
+        {% if object_list|length %}
+            <div class="row">
+                {% for result in object_list %}
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                    <div class="thumbnail">
+                        {% if result.content_type == "image.image" %}
+                            {% if result.object.image|is_portrait %}
+                                {% thumbnail result.object.image "x200" as im %}
+                                    <a href="{{ result.object.get_absolute_url }}">
+                                        <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                                    </a>
+                                {% endthumbnail %}
+                            {% else %}
+                                {% thumbnail result.object.image "200" as im %}
+                                    <a href="{{ result.object.get_absolute_url }}">
+                                        <img class="img-responsive" src="{{ im.url }}" alt="{{ result.object.title }}">
+                                    </a>
+                                {% endthumbnail %}
+                            {% endif %}
+                        {% elif result.content_type == "youtube.youtubevideo" %}
+                            <a href="{{ result.object.get_absolute_url }}">
+                                <img class="img-responsive" src="//img.youtube.com/vi/{{ result.object.youtube_id }}/0.jpg" alt="{{ object.title }}">
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% include "includes/pagination.html" %}
+        {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{% trans 'No Results Found' %}</h2>
+                    <p>{% trans 'Sorry, no results matched your query.' %}</p>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block extra_javascripts %}
+    <script type="text/javascript" src="{% static 'js/jquery.matchHeight.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.thumbnail').matchHeight();
+        });
+    </script>
+{% endblock %}

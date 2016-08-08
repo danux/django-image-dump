@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n thumbnail static %}
+
+
+{% block title %}{% trans 'Browse Images' %}{% endblock title %}
+
+
+{% block browse_active %} active{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{% trans "Browse Videos" %}</h1>
+            <p class="lead">
+                {% trans "Browse videos that have been downloaded previously. Select a video to view." %}
+            </p>
+        </div>
+    </div>
+    <div class="row" data-equal=".thumbnail">
+        {% for object in object_list %}
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="thumbnail">
+                <a href="{{ object.get_absolute_url }}">
+                    <img class="img-responsive" src="{{ object.get_autocomplete_thumbnail }}" alt="{{ object.title }}">
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include "includes/pagination.html" %}
+{% endblock %}
+
+
+{% block extra_javascripts %}
+    <script type="text/javascript" src="{% static 'js/jquery.matchHeight.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.thumbnail').matchHeight();
+        });
+    </script>
+{% endblock %}
