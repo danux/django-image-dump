@@ -6,7 +6,7 @@ $(function(){
         datumTokenizer: function(datum) { return Bloodhound.tokenizers.obj.whitespace(datum.value); },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: '/autocomplete/?q=%QUERY',
+            url: '/search/autocomplete/?q=%QUERY',
             wildcard: '%QUERY',
             filter: function(image_results) {
                 return $.map(image_results.results, function(image) {
