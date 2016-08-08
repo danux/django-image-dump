@@ -3,7 +3,9 @@
 Tests for my own recurive
 """
 from __future__ import unicode_literals
+
 from django.test import TestCase
+
 from images.base62 import base62encode
 
 

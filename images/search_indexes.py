@@ -3,7 +3,9 @@
 Search indexes for the image app.
 """
 from __future__ import unicode_literals
+
 from haystack import indexes
+
 from images.models import Image
 
 

@@ -3,42 +3,29 @@
 
 """
 from __future__ import unicode_literals
+
+import struct
+
+import magic
 from Crypto.Cipher import DES
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
-from images.base62 import base62encode
 from sorl.thumbnail import get_thumbnail
-import magic
-import struct
+
+from images.base62 import base62encode
+from search.models import SearchStub
 
 
-class ImageManager(models.Manager):
-    """
-    Manager for filtering Images.
-    """
-    def filter_uploaded_by(self, uploaded_by):
-        """
-        Filters images uploaded by a given user.
-        :type uploaded_by: User
-        """
-        return self.filter(uploaded_by=uploaded_by)
-
-
-class Image(models.Model):
+class Image(SearchStub):
     """
     Model representing an image that has been uploaded to the system.
     """
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='u/%Y/%m/')
     encrypted_key = models.CharField(max_length=250, db_index=True)
-    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     tags = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-
-    objects = ImageManager()
 
     def get_absolute_url(self):
         """
@@ -103,6 +90,12 @@ class Image(models.Model):
         Returns the image's mime type, using magic.
         """
         return magic.from_file(self.image.file.name, mime=True)
+
+    def get_autocomplete_thumbnail(self):
+        """
+        Returns a thumbnail for auto search.
+        """
+        return self.make_thumbnail('30')
 
     class Meta(object):
         ordering = ['-date_created']

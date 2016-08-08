@@ -3,8 +3,11 @@
 Tests that images can be deleted.
 """
 from __future__ import unicode_literals
+
 import json
+
 from django.test import TestCase
+
 from accounts.factories import UserFactory
 from images.factories import ImageFactory
 from images.models import Image

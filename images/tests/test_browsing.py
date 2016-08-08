@@ -32,7 +32,7 @@ class ImageBrowsingTestCase(TestCase):
             image.delete()
         super(ImageBrowsingTestCase, self).tearDown()
 
-    @patch('images.models.ImageManager.filter_uploaded_by')
+    @patch('search.models.SearchStubManager.filter_uploaded_by')
     def test_can_list_images(self, filter_uploaded_by):
         """
         Tests the images can be listed out

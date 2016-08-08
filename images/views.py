@@ -3,6 +3,10 @@
 
 """
 from __future__ import unicode_literals
+
+import json
+
+import magic
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
@@ -10,11 +14,9 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView
-from haystack.generic_views import SearchView
-from haystack.query import SearchQuerySet
+
+from image_dump.logger import StructLogger
 from images.models import Image
-import magic
-import json
 
 
 def multi_image_upload(request):
@@ -23,6 +25,9 @@ def multi_image_upload(request):
 
     :type request: HttpRequest
     """
+
+    logger = StructLogger.get_logger(__name__, request)
+
     if request.method == 'POST':
         if 'application/json' in request.META.get('HTTP_ACCEPT', []):
             content_type = 'application/json'
@@ -37,6 +42,7 @@ def multi_image_upload(request):
                 'size': request.FILES['files[]'].size,
                 'error': _('{} is not a valid image file').format(request.FILES['files[]'].name),
             }]}
+            logger.error(msg='Upload failed', file_name=request.FILES['files[]'].name)
         else:
             image = Image.objects.create(image=request.FILES['files[]'], uploaded_by=request.user)
             thumbnail = image.make_thumbnail()
@@ -48,6 +54,11 @@ def multi_image_upload(request):
                 'deleteUrl': image.get_delete_url(),
                 'deleteType': 'DELETE',
             }]}
+            logger.info(
+                msg='Upload successful',
+                file_name=request.FILES['files[]'].name,
+                image_pk=image.pk,
+            )
         return JsonResponse(response_dict, content_type=content_type)
     else:
         return render_to_response('images/upload.html', context_instance=RequestContext(request))
@@ -60,10 +71,15 @@ def delete_image(request, slug):
     :param request: The HTTP request
     :param slug: The Slug of the image
     """
+
+    logger = StructLogger.get_logger(__name__, request)
+
     if request.method != 'DELETE':
+        logger.error(msg='Delete failed', method=request.method)
         return HttpResponseNotAllowed(permitted_methods=['DELETE'])
 
     if not request.user.is_authenticated():
+        logger.error(msg='User not authenticated')
         return HttpResponseForbidden()
 
     if 'application/json' in request.META.get('HTTP_ACCEPT', []):
@@ -72,6 +88,7 @@ def delete_image(request, slug):
         content_type = 'text/plain'
     image = get_object_or_404(Image, encrypted_key=slug)
     image.delete()
+    logger.info(msg='Image deleted', image_pk=image.pk)
     response_dict = {
         'files': {image.title: True}
     }
@@ -114,36 +131,6 @@ def image_detail_raw(request, slug, extension):
     the_object = get_object_or_404(Image, encrypted_key=slug)
     image_data = open(the_object.image.file.name, "rb").read()
     return HttpResponse(image_data, content_type=the_object.mime_type)
-
-
-class ImageSearchView(SearchView):
-    """
-    Custom search view to ensure users can only search their own images.
-    """
-    paginate_by = 12
-
-    def get_queryset(self):
-        queryset = super(ImageSearchView, self).get_queryset()
-        return queryset.filter(uploaded_by=self.request.user)
-
-
-def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:10]
-    if 'application/json' in request.META.get('HTTP_ACCEPT', []):
-        content_type = 'application/json'
-    else:
-        content_type = 'text/plain'
-    suggestions = [
-        {
-            'title': result.object.title,
-            'thumbnail': result.object.make_thumbnail('30'),
-            'url': result.object.get_absolute_url(),
-        } for result in sqs
-    ]
-    the_data = json.dumps({
-        'results': suggestions
-    })
-    return HttpResponse(the_data, content_type=content_type)
 
 
 def latest_images(request):
