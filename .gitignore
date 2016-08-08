@@ -8,3 +8,4 @@ build
 /static/
 /media/
 /whoosh_index/
+/deployment/

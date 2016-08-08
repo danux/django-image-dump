@@ -14,4 +14,4 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
 # Start your Django Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
-celery -A image_dump worker -B --loglevel=info
+celery -A image_dump worker -B --loglevel=info --maxtasksperchild=10
