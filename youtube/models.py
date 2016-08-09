@@ -12,10 +12,10 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from pytube import YouTube
 
-from search.models import SearchStub
+from search.models import SearchStub, SearchStubManager
 
 
-class YoutubeVideoManager(models.Manager):
+class YoutubeVideoManager(SearchStubManager):
     """
     Manager for YoutubeVideo class.
     """
