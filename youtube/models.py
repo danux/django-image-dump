@@ -22,6 +22,7 @@ class YoutubeVideo(SearchStub):
     title = models.CharField(max_length=250, null=True)
     youtube_id = models.CharField(_('YouTube ID'), max_length=20, db_index=True, unique=True)
     file_path = models.CharField(max_length=250, null=True)
+    downloaded = models.BooleanField(default=False)
 
     def download(self):
         """
@@ -33,6 +34,7 @@ class YoutubeVideo(SearchStub):
         self.file_path = '{0}.mp4'.format(self.youtube_id)
         yt.set_filename(self.youtube_id)
         video.download(settings.YOUTUBE_DOWNLOAD_ROOT)
+        self.downloaded = True
         self.save()
 
     def get_absolute_url(self):

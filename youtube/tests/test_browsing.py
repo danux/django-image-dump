@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.views.generic import ListView
 
+from youtube.factories import YoutubeVideoFactory
 from youtube.models import YoutubeVideo
 
 try:
@@ -48,3 +49,16 @@ class YoutubeVideoBrowsingTestCase(TestCase):
             response,
             '{0}?next={1}'.format(reverse('accounts:login'), reverse('youtube:youtube_video_list'))
         )
+
+    def test_pending_has_pending_template(self):
+        """
+        Tests that a pending video has a different template
+        """
+        youtube_video = YoutubeVideoFactory.create(uploaded_by=self.user)
+        response = self.client.get(youtube_video.get_absolute_url())
+        self.assertTemplateUsed(response, 'youtube/youtubevideo_detail_pending.html')
+
+    def test_has_correct_template(self):
+        youtube_video = YoutubeVideoFactory.create(uploaded_by=self.user, downloaded=True)
+        response = self.client.get(youtube_video.get_absolute_url())
+        self.assertTemplateUsed(response, 'youtube/youtubevideo_detail.html')
