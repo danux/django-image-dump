@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -176,3 +178,17 @@ INSTALLED_APPS += (
 YOUTUBE_DOWNLOAD_ROOT = os.path.join(BASE_DIR, 'youtube_videos')
 YOUTUBE_DOWNLOAD_URL = '/videos/'
 YOUTUBE_API_KEY = 'CHANGE-ME'
+
+
+# Celery
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/London'
+
+CELERYBEAT_SCHEDULE = {
+    'rebuild-search-index': {
+        'task': 'search.tasks.rebuild_index',
+        'schedule': timedelta(minutes=1)
+    },
+}

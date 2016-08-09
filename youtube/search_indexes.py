@@ -23,4 +23,4 @@ class YoutubeVideoIndex(indexes.SearchIndex, indexes.Indexable):
         return YoutubeVideo
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter_downloaded()

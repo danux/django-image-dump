@@ -15,6 +15,14 @@ from pytube import YouTube
 from search.models import SearchStub
 
 
+class YoutubeVideoManager(models.Manager):
+    """
+    Manager for YoutubeVideo class.
+    """
+    def filter_downloaded(self):
+        return self.filter(downloaded=True)
+
+
 class YoutubeVideo(SearchStub):
     """
     Model representing a single Youtube video.
@@ -23,6 +31,8 @@ class YoutubeVideo(SearchStub):
     youtube_id = models.CharField(_('YouTube ID'), max_length=20, db_index=True, unique=True)
     file_path = models.CharField(max_length=250, null=True)
     downloaded = models.BooleanField(default=False)
+
+    objects = YoutubeVideoManager()
 
     def download(self):
         """
