@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Factory for creating a test user.
+Factory for creating a test YoutubeVideo.
 """
 from __future__ import unicode_literals
 
 import factory
 
-from accounts.factories import UserFactory
+from search.factories import SearchStubFactory
 from youtube.models import YoutubeVideo
 
 
-class YoutubeVideoFactory(factory.DjangoModelFactory):
+class YoutubeVideoFactory(SearchStubFactory):
     """
     Factory for creating a test user
     """
     youtube_id = factory.Sequence(lambda n: "video-{}".format(n))
-    uploaded_by = factory.SubFactory(UserFactory)
 
     class Meta(object):
         model = YoutubeVideo
