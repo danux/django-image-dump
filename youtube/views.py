@@ -63,6 +63,12 @@ class YoutubeVideoDetailView(DetailView):
     slug_url_kwarg = 'youtube_id'
     slug_field = 'youtube_id'
 
+    def get_template_names(self):
+        if self.get_object().downloaded:
+            return super(YoutubeVideoDetailView, self).get_template_names()
+        else:
+            return 'youtube/youtubevideo_detail_pending.html'
+
 
 class YoutubeVideoListView(ListView):
     """

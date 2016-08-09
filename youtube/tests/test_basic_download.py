@@ -50,6 +50,7 @@ class DownloadTestCase(TestCase):
 
         self.assertEquals(video.title, 'Test Title')
         self.assertEquals(video.file_path, '_IMlaimDzTg.mp4')
+        self.assertTrue(video.downloaded)
 
     def test_view_to_download_renders(self):
         """

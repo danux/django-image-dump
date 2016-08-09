@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n thumbnail static inplace_edit %}
+
+
+{% block title %}{% trans 'Pending Video' %}{% endblock title %}
+
+
+{% block nav_bar_class %}navbar-inverse{% endblock nav_bar_class %}
+
+
+{% block browse_active %} active{% endblock %}
+
+{% block extra_javascripts %}
+    {% inplace_static %}
+{% endblock extra_javascripts %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">{% trans 'Pending Video' %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>
+                This video hasn't finished downloading yet, please check back soon.
+            </p>
+        </div>
+    </div>
+{% endblock %}
