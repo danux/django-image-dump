@@ -181,6 +181,9 @@ YOUTUBE_API_KEY = 'CHANGE-ME'
 
 
 # Celery
+INSTALLED_APPS += (
+    'django_celery_beat',
+)
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
