@@ -4,15 +4,18 @@ URLs to manage accounts.
 """
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import RedirectView
 
 from images.views import ImageDetailView, ImageListView
 from images.views import multi_image_upload, delete_image, image_detail_raw, latest_images
 
-urlpatterns = patterns(
-    '',
+
+app_name = 'images'
+
+
+urlpatterns = (
     url(r'^upload/$', login_required(multi_image_upload), name='upload'),
     url(r'^list/$', login_required(ImageListView.as_view()), name='image_list'),
     url(r'^list/latest/?$', login_required(latest_images), name='latest_images'),

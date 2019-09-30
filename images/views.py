@@ -9,8 +9,7 @@ import json
 import magic
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView
@@ -61,7 +60,7 @@ def multi_image_upload(request):
             )
         return JsonResponse(response_dict, content_type=content_type)
     else:
-        return render_to_response('images/upload.html', context_instance=RequestContext(request))
+        return render(request=request, template_name='images/upload.html')
 
 
 @csrf_protect
@@ -78,7 +77,7 @@ def delete_image(request, slug):
         logger.error(msg='Delete failed', method=request.method)
         return HttpResponseNotAllowed(permitted_methods=['DELETE'])
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         logger.error(msg='User not authenticated')
         return HttpResponseForbidden()
 

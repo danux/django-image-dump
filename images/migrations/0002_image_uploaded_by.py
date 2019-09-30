@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='uploaded_by',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, default=1),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE),
             preserve_default=False,
         ),
     ]

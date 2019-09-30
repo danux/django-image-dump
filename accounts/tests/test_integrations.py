@@ -4,7 +4,7 @@
 """
 from __future__ import unicode_literals
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 
 from accounts.factories import UserFactory
@@ -33,7 +33,7 @@ class AccountIntegrationTestCase(TestCase):
             follow=True,
         )
         self.assertRedirects(response, reverse('images:upload'))
-        self.assertTrue(response.context['user'].is_authenticated())
+        self.assertTrue(response.context['user'].is_authenticated)
 
     def test_can_logout(self):
         """
@@ -43,4 +43,4 @@ class AccountIntegrationTestCase(TestCase):
         self.client.login(**{'username': user.username, 'password': 'password'})
         response = self.client.get(reverse('accounts:logout'), follow=True)
         self.assertRedirects(response, '{0}?next={1}'.format(reverse('accounts:login'), reverse('images:upload')))
-        self.assertFalse(response.context['user'].is_authenticated())
+        self.assertFalse(response.context['user'].is_authenticated)

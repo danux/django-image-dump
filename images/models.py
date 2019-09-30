@@ -9,9 +9,9 @@ import struct
 import magic
 from Crypto.Cipher import DES
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
+from django.urls import reverse
 from sorl.thumbnail import get_thumbnail
 
 from images.base62 import base62encode
@@ -113,4 +113,6 @@ def post_create_setup(sender, **kwargs):
         instance.generate_encrypted_key()
         instance.set_title()
         instance.save()
+
+
 post_save.connect(post_create_setup, sender=Image)

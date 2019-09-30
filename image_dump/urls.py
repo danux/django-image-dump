@@ -20,10 +20,10 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^youtube/', include('youtube.urls', namespace='youtube')),
-    url(r'^s/', include('search.urls', namespace='search')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    url(r'^youtube/', include(('youtube.urls', 'youtube'), namespace='youtube')),
+    url(r'^s/', include(('search.urls', 'search'), namespace='search')),
     url(r'^inplaceeditform/', include('inplaceeditform.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^', include('images.urls', namespace='images')),

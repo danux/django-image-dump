@@ -4,35 +4,35 @@ URLs to manage accounts.
 """
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
-urlpatterns = patterns(
-    '',
+
+app_name = 'accounts'
+
+
+urlpatterns = (
     url(
         r'^login/$',
-        'django.contrib.auth.views.login',
+        LoginView.as_view(template_name='accounts/login.html'),
         name='login',
-        kwargs={'template_name': 'accounts/login.html'}
     ),
     url(
         r'^logout/$',
-        'django.contrib.auth.views.logout',
+        LogoutView.as_view(next_page='/'),
         name='logout',
-        kwargs={'next_page': '/'}
     ),
     url(
         '^change-password/$',
-        'django.contrib.auth.views.password_change',
+        PasswordChangeView.as_view(
+            template_name='accounts/change-password.html',
+            success_url='accounts:change_password_done',
+        ),
         name='change_password',
-        kwargs={
-            'template_name': 'accounts/change-password.html',
-            'post_change_redirect': 'accounts:change_password_done',
-        }
     ),
     url(
         '^change-password/done/$',
-        'django.contrib.auth.views.password_change_done',
+        PasswordChangeDoneView.as_view(template_name='accounts/change-password-done.html'),
         name='change_password_done',
-        kwargs={'template_name': 'accounts/change-password-done.html'}
     )
 )
