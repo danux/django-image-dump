@@ -9,7 +9,7 @@ from django.forms import CharField
 from django.test import TestCase, override_settings
 from django.views.generic import CreateView
 try:
-    from unittest.mock import patch, MagicMock
+    from unittest.mock import patch, MagicMock, Mock
 except ImportError:
     from mock import patch, MagicMock
 
@@ -34,19 +34,30 @@ class DownloadTestCase(TestCase):
         It should be possible to download a video and have the title automatically set.
         """
 
-        class MockVideo(MagicMock):
-            filename = 'Test Title'
+        class MockVideo(Mock):
+            @staticmethod
+            def download(output_path, filename):
+                pass
+        videos = [MockVideo]
 
-        video = YoutubeVideo(youtube_id='_IMlaimDzTg')
-        with patch('youtube.models.YouTube.filter') as mock_filter:
-            with patch('youtube.models.YouTube.set_filename') as mock_set_filename:
-                videos = [MockVideo(), MockVideo(), MockVideo()]
-                mock_filter.return_value = videos
-                video.uploaded_by = self.user
-                video.download()
-                mock_filter.assert_called_once_with('mp4')
-                mock_set_filename.assert_called_once_with('_IMlaimDzTg')
-                videos[-1].download.assert_called_once_with('/youtube-downloads/')
+        class MockStream(MagicMock):
+            def first(self):
+                return videos[0]
+
+        class MockYoutube(MagicMock):
+            @property
+            def title(self):
+                return 'Test Title'
+
+            @property
+            def streams(self):
+                return MockStream()
+
+        with patch('youtube.models.YouTube') as mock_youtube:
+            mock_youtube.return_value = MockYoutube()
+            video = YoutubeVideo(youtube_id='_IMlaimDzTg')
+            video.uploaded_by = self.user
+            video.download()
 
         self.assertEquals(video.title, 'Test Title')
         self.assertEquals(video.file_path, '_IMlaimDzTg.mp4')

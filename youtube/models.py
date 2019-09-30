@@ -39,11 +39,11 @@ class YoutubeVideo(SearchStub):
         Downloads the YouTube video and sets the video's title.
         """
         yt = YouTube('https://www.youtube.com/watch?v={0}'.format(self.youtube_id))
-        video = yt.filter('mp4')[-1]
-        self.title = video.filename
+        self.title = yt.title
+
+        my_stream = yt.streams.first()
         self.file_path = '{0}.mp4'.format(self.youtube_id)
-        yt.set_filename(self.youtube_id)
-        video.download(settings.YOUTUBE_DOWNLOAD_ROOT)
+        my_stream.download(output_path=settings.YOUTUBE_DOWNLOAD_ROOT, filename=self.youtube_id)
         self.downloaded = True
         self.save()
 
