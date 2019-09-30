@@ -20,4 +20,4 @@ pytube==9.5.2
 requests==2.22.0
 structlog==19.1.0
 celery==4.3.0
-librabbitmq==2.0.0
+#librabbitmq==2.0.0
