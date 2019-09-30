@@ -41,7 +41,7 @@ def multi_image_upload(request):
                 'size': request.FILES['files[]'].size,
                 'error': _('{} is not a valid image file').format(request.FILES['files[]'].name),
             }]}
-            logger.error(msg='Upload failed', file_name=request.FILES['files[]'].name)
+            logger.error('Upload failed', file_name=request.FILES['files[]'].name)
         else:
             image = Image.objects.create(image=request.FILES['files[]'], uploaded_by=request.user)
             thumbnail = image.make_thumbnail()
@@ -54,7 +54,7 @@ def multi_image_upload(request):
                 'deleteType': 'DELETE',
             }]}
             logger.info(
-                msg='Upload successful',
+                'Upload successful',
                 file_name=request.FILES['files[]'].name,
                 image_pk=image.pk,
             )
@@ -74,11 +74,11 @@ def delete_image(request, slug):
     logger = StructLogger.get_logger(__name__, request)
 
     if request.method != 'DELETE':
-        logger.error(msg='Delete failed', method=request.method)
+        logger.error('Delete failed', method=request.method)
         return HttpResponseNotAllowed(permitted_methods=['DELETE'])
 
     if not request.user.is_authenticated:
-        logger.error(msg='User not authenticated')
+        logger.error('User not authenticated')
         return HttpResponseForbidden()
 
     if 'application/json' in request.META.get('HTTP_ACCEPT', []):
@@ -87,7 +87,7 @@ def delete_image(request, slug):
         content_type = 'text/plain'
     image = get_object_or_404(Image, encrypted_key=slug)
     image.delete()
-    logger.info(msg='Image deleted', image_pk=image.pk)
+    logger.info('Image deleted', image_pk=image.pk)
     response_dict = {
         'files': {image.title: True}
     }

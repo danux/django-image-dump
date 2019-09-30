@@ -75,7 +75,7 @@ class ImageModelTestCase(TestCase):
         Tests an image knows its file extension.
         """
         image = ImageFactory.create()
-        self.assertEquals(image.mime_type, b'image/png')
+        self.assertEquals(image.mime_type, 'image/png')
 
     @override_settings(DES_KEY='abcd1234')
     def test_image_knows_raw_url(self):

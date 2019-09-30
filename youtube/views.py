@@ -36,7 +36,7 @@ class YoutubeVideoCreateView(CreateView):
         self.object.save()
         download_video.delay(self.object)
         logger = StructLogger.get_logger(__name__, self.request)
-        logger.info(msg='Download successful', youtube_video_pk=self.object.pk, youtube_id=self.object.youtube_id)
+        logger.info('Download successful', youtube_video_pk=self.object.pk, youtube_id=self.object.youtube_id)
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):

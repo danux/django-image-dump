@@ -116,9 +116,9 @@ THUMBNAIL_UPSCALE = False
 LOGIN_REDIRECT_URL = 'images:index'
 DES_KEY = 'changeme'
 ALLOWED_MIME_TYPES = (
-    b'image/png',
-    b'image/jpeg',
-    b'image/gif',
+    'image/png',
+    'image/jpeg',
+    'image/gif',
 )
 
 
