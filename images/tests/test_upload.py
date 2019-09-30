@@ -90,7 +90,7 @@ class ImageUploadTestCase(TestCase):
             os.path.join(settings.BASE_DIR, 'images', 'tests', 'data', 'image.png'), "rb"
         ) as image_file:
             image = SimpleUploadedFile("test.png", image_file.read(), content_type='image/png')
-            response = self.client.post(reverse('images:upload'), data={'files[]': image}, follow=True)
+            self.client.post(reverse('images:upload'), data={'files[]': image}, follow=True)
         latest_image = Image.objects.latest('date_created')
         self.assertEquals(self.user, latest_image.uploaded_by)
 
