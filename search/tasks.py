@@ -18,4 +18,4 @@ def rebuild_index():
     """
     update_index.Command().handle(interactive=False)
     logger = StructLogger.get_logger(__name__)
-    logger.info(msg='Re-indexed search')
+    logger.info('Re-indexed search')
