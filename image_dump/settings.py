@@ -49,6 +49,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +58,6 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
 )
 
 ROOT_URLCONF = 'image_dump.urls'
@@ -192,6 +192,6 @@ CELERY_TIMEZONE = 'Europe/London'
 CELERYBEAT_SCHEDULE = {
     'rebuild-search-index': {
         'task': 'search.tasks.rebuild_index',
-        'schedule': timedelta(minutes=1)
+        'schedule': timedelta(hours=1)
     },
 }

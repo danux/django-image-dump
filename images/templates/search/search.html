@@ -6,6 +6,11 @@
 
 
 {% block content %}
+    <form method="get" action=".">
+        {{ form }}
+    <input type="submit">
+    {{ query }}
+    </form>
     <div class="row">
         <div class="col-md-12">
             <h1>{% trans "Search Images" %}</h1>
@@ -41,7 +46,7 @@
         {% else %}
             <div class="row">
                 <div class="col-md-12">
-                    <h2>{% trans 'No Results Found' %}</h2>
+                    <h2>{% trans 'No Results Found' %} Len: {{ page_obj.object_list|length }}</h2>
                     <p>{% trans 'Sorry, no images matched your query.' %}</p>
                 </div>
             </div>
