@@ -1,4 +1,4 @@
-django==2.2.5
+django==2.2.18
 pep8==1.7.1
 flake8==3.7.8
 django-widget-tweaks==1.4.5
